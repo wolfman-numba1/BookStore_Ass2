@@ -1,0 +1,19 @@
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.dll.config
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.dll
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.pdb
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.csprojResolveAssemblyReference.cache
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.csproj.CoreCompileInputs.cache
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.dll
+C:\Users\David\Desktop\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.pdb
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.dll.config
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.dll
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\DeliveryCo.Business.Entities.pdb
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\EntityFramework.dll
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\EntityFramework.xml
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.csprojAssemblyReference.cache
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.csproj.CoreCompileInputs.cache
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.csproj.CopyComplete
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.dll
+C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\DeliveryCo.Business\DeliveryCo.Business.Entities\obj\x86\Debug\DeliveryCo.Business.Entities.pdb
