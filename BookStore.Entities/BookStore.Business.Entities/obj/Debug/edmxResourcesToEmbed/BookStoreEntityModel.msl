@@ -48,7 +48,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(BookStoreEntityModel.Stock)">
         <MappingFragment StoreEntitySet="Stocks">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -78,6 +77,14 @@
         <MappingFragment StoreEntitySet="Roles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouses">
+      <EntityTypeMapping TypeName="IsTypeOf(BookStoreEntityModel.Warehouse)">
+        <MappingFragment StoreEntitySet="Warehouses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -135,6 +142,14 @@
       </EndProperty>
       <EndProperty Name="Book">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WarehouseStock" TypeName="BookStoreEntityModel.WarehouseStock" StoreEntitySet="WarehouseStock">
+      <EndProperty Name="Warehouse">
+        <ScalarProperty Name="Id" ColumnName="Warehouses_Id" />
+      </EndProperty>
+      <EndProperty Name="Stock">
+        <ScalarProperty Name="Id" ColumnName="Stocks_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

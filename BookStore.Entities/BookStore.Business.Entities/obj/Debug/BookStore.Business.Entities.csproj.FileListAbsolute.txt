@@ -15,3 +15,16 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookSt
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.pdb
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.dll.config
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.dll
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.pdb
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.dll
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.pdb
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.dll.config
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\EntityFramework.xml
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csprojAssemblyReference.cache
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csproj.CopyComplete
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.dll
+C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.pdb

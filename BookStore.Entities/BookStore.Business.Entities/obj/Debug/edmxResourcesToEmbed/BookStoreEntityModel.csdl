@@ -37,6 +37,11 @@
       <End Role="Book" EntitySet="Books" />
       <End Role="Stock" EntitySet="Stocks" />
     </AssociationSet>
+    <EntitySet Name="Warehouses" EntityType="BookStoreEntityModel.Warehouse" />
+    <AssociationSet Name="WarehouseStock" Association="BookStoreEntityModel.WarehouseStock">
+      <End Role="Warehouse" EntitySet="Warehouses" />
+      <End Role="Stock" EntitySet="Stocks" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -90,9 +95,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-    <Property Type="String" Name="Warehouse" Nullable="false" />
-    <Property Type="Int32" Name="Quantity" Nullable="true" />
     <NavigationProperty Name="Book" Relationship="BookStoreEntityModel.BookStock" FromRole="Stock" ToRole="Book" />
+    <NavigationProperty Name="Warehouses" Relationship="BookStoreEntityModel.WarehouseStock" FromRole="Stock" ToRole="Warehouse" />
+    <Property Name="Quantity" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="OrderOrderItem">
     <End Type="BookStoreEntityModel.Order" Role="Order" Multiplicity="1" />
@@ -148,5 +153,17 @@
   <Association Name="BookStock">
     <End Type="BookStoreEntityModel.Book" Role="Book" Multiplicity="1" />
     <End Type="BookStoreEntityModel.Stock" Role="Stock" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Stocks" Relationship="BookStoreEntityModel.WarehouseStock" FromRole="Warehouse" ToRole="Stock" />
+  </EntityType>
+  <Association Name="WarehouseStock">
+    <End Type="BookStoreEntityModel.Warehouse" Role="Warehouse" Multiplicity="*" />
+    <End Type="BookStoreEntityModel.Stock" Role="Stock" Multiplicity="*" />
   </Association>
 </Schema>

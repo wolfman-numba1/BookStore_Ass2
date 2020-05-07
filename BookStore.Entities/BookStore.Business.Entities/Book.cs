@@ -19,7 +19,7 @@ namespace BookStore.Business.Entities
         public string Author { get; set; }
         public string Genre { get; set; }
         public double Price { get; set; }
-
+    
         public virtual Stock Stock { get; set; }
     }
 }

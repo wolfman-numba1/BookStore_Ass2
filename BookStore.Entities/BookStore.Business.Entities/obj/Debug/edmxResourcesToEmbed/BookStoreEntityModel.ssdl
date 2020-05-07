@@ -9,7 +9,9 @@
     <EntitySet Name="LoginCredentials" EntityType="BookStoreEntityModel.Store.LoginCredentials" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Books" EntityType="BookStoreEntityModel.Store.Books" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Roles" EntityType="BookStoreEntityModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Warehouses" EntityType="BookStoreEntityModel.Store.Warehouses" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserRole" EntityType="BookStoreEntityModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WarehouseStock" EntityType="BookStoreEntityModel.Store.WarehouseStock" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="OrderOrderItem" Association="BookStoreEntityModel.Store.OrderOrderItem">
       <End Role="Order" EntitySet="Orders" />
       <End Role="OrderItem" EntitySet="OrderItems" />
@@ -41,6 +43,14 @@
     <AssociationSet Name="BookStock" Association="BookStoreEntityModel.Store.BookStock">
       <End Role="Book" EntitySet="Books" />
       <End Role="Stock" EntitySet="Stocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WarehouseStock_Warehouse" Association="BookStoreEntityModel.Store.FK_WarehouseStock_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouses" />
+      <End Role="WarehouseStock" EntitySet="WarehouseStock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WarehouseStock_Stock" Association="BookStoreEntityModel.Store.FK_WarehouseStock_Stock">
+      <End Role="Stock" EntitySet="Stocks" />
+      <End Role="WarehouseStock" EntitySet="WarehouseStock" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Users">
@@ -92,7 +102,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Warehouse" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="LoginCredentials">
@@ -121,6 +130,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="Warehouses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="true" />
+  </EntityType>
   <EntityType Name="UserRole">
     <Key>
       <PropertyRef Name="User_Id" />
@@ -128,6 +144,14 @@
     </Key>
     <Property Name="User_Id" Type="int" Nullable="false" />
     <Property Name="Roles_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WarehouseStock">
+    <Key>
+      <PropertyRef Name="Warehouses_Id" />
+      <PropertyRef Name="Stocks_Id" />
+    </Key>
+    <Property Name="Warehouses_Id" Type="int" Nullable="false" />
+    <Property Name="Stocks_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="OrderOrderItem">
     <End Role="Order" Type="BookStoreEntityModel.Store.Orders" Multiplicity="1" />
@@ -222,6 +246,30 @@
       </Principal>
       <Dependent Role="UserRole">
         <PropertyRef Name="Roles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WarehouseStock_Warehouse">
+    <End Role="Warehouse" Type="BookStoreEntityModel.Store.Warehouses" Multiplicity="1" />
+    <End Role="WarehouseStock" Type="BookStoreEntityModel.Store.WarehouseStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WarehouseStock">
+        <PropertyRef Name="Warehouses_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WarehouseStock_Stock">
+    <End Role="WarehouseStock" Type="BookStoreEntityModel.Store.WarehouseStock" Multiplicity="*" />
+    <End Role="Stock" Type="BookStoreEntityModel.Store.Stocks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WarehouseStock">
+        <PropertyRef Name="Stocks_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

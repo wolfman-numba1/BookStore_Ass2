@@ -17,6 +17,7 @@ using System.Transactions;
 using System.ServiceModel.Description;
 using BookStore.Business.Components.Interfaces;
 using BookStore.WebClient.CustomAuth;
+using System.Collections;
 
 namespace BookStore.Process
 {
@@ -78,10 +79,18 @@ namespace BookStore.Process
                     {
                         Book = lGreatExpectations,
                         Quantity = 5,
-                        Warehouse = "Neutral Bay"
+                        Warehouses = new List<Warehouse>()
                     };
-
+                    Warehouse A = new Warehouse()
+                    {
+                        Quantity = 5
+                    };
+                    lGreatExpectationsStock.Warehouses.Add(A);
                     lContainer.Stocks.Add(lGreatExpectationsStock);
+                    lContainer.Warehouses.Add(A);
+
+                    //System.Diagnostics.Debug.WriteLine(lGreatExpectationsStock.Id);
+                    //System.Diagnostics.Debug.WriteLine("Id 1");
 
                     Book lSoloist = new Book()
                     {
@@ -97,10 +106,19 @@ namespace BookStore.Process
                     {
                         Book = lSoloist,
                         Quantity = 7,
-                        Warehouse = "Neutral Bay"
+                        Warehouses = new List<Warehouse>()
                     };
-
+                    Warehouse B = new Warehouse()
+                    {
+                        Quantity = 7
+                    };
+                    lGreatExpectationsStock.Warehouses.Add(B);
                     lContainer.Stocks.Add(lSoloistStock);
+                    lContainer.Warehouses.Add(B);
+
+                    //System.Diagnostics.Debug.WriteLine(lSoloistStock.Id);
+                    //System.Diagnostics.Debug.WriteLine("Id 2");
+
 
                     for (int i = 1; i < 10; i++)
                     {
@@ -112,18 +130,20 @@ namespace BookStore.Process
                             Title = String.Format("Title {0}", i)
                         };
 
-                        lContainer.Stocks.Add(lSoloistStock);
-
                         Stock lStock = new Stock()
                         {
                             Book = lItem,
                             Quantity = 10 + i,
-                            Warehouse = String.Format("Warehouse {0}", i)
+                            Warehouses = new List<Warehouse>()
                         };
-
+                        Warehouse C = new Warehouse()
+                        {
+                            Quantity = 10 + i
+                        };
+                        lStock.Warehouses.Add(C);
                         lContainer.Stocks.Add(lStock);
+                        lContainer.Warehouses.Add(C);
                     }
-
                     lContainer.SaveChanges();
                     lScope.Complete();
                 }
