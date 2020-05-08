@@ -74,3 +74,28 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\Bank.A
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.exe
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Process.exe.config
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Process.exe
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Process.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Components.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Components.Interfaces.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Entities.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Services.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Services.Interfaces.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Microsoft.Practices.Unity.StaticFactory.dll
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Components.Interfaces.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Components.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Entities.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Business.Entities.dll.config
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Services.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\bin\Debug\Bank.Services.Interfaces.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.csprojAssemblyReference.cache
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.csproj.CoreCompileInputs.cache
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.csproj.CopyComplete
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.exe
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Bank.Application\Bank.Process\obj\x86\Debug\Bank.Process.pdb
