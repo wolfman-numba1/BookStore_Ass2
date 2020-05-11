@@ -12,11 +12,6 @@ namespace BookStore.Services.Interfaces
     public interface IWarehouseService
     {
         [OperationContract]
-        
-        List<(Warehouse, Book)> ConfirmOrder(Order pOrder);
-
-        [OperationContract]
-
-        int GetStockLevelForBook(int warehouseId, int bookId);
+        int foo();
     }
 }
