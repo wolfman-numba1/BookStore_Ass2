@@ -13,3 +13,4 @@ C:\Users\blaze\Source\Repos\BookStore_Ass2\DeliveryCo.MessageTypes\bin\Debug\Del
 C:\Users\blaze\Source\Repos\BookStore_Ass2\DeliveryCo.MessageTypes\obj\Debug\DeliveryCo.MessageTypes.csproj.CoreCompileInputs.cache
 C:\Users\blaze\Source\Repos\BookStore_Ass2\DeliveryCo.MessageTypes\obj\Debug\DeliveryCo.MessageTypes.dll
 C:\Users\blaze\Source\Repos\BookStore_Ass2\DeliveryCo.MessageTypes\obj\Debug\DeliveryCo.MessageTypes.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\DeliveryCo.MessageTypes\obj\Debug\DeliveryCo.MessageTypes.csprojAssemblyReference.cache

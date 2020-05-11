@@ -46,3 +46,4 @@ C:\Users\blaze\Source\Repos\BookStore_Ass2\Common\obj\Debug\Common.csproj.CoreCo
 C:\Users\blaze\Source\Repos\BookStore_Ass2\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\blaze\Source\Repos\BookStore_Ass2\Common\obj\Debug\Common.dll
 C:\Users\blaze\Source\Repos\BookStore_Ass2\Common\obj\Debug\Common.pdb
+C:\Users\blaze\Source\Repos\BookStore_Ass2\Common\obj\Debug\Common.csprojAssemblyReference.cache
