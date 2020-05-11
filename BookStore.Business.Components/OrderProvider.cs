@@ -57,7 +57,7 @@ namespace BookStore.Business.Components
                         lContainer.Orders.Add(pOrder);
 
                         // confirm the order can be completed and from which warehouses
-                        List<(Warehouse, Book)> confirmedOrder = ConfirmOrder(pOrder);
+                        List<(int,int)> confirmedOrder = ConfirmOrder(pOrder);
 
                         // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);

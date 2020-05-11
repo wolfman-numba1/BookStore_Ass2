@@ -7,19 +7,20 @@ using BookStore.Business.Entities;
 using System.Transactions;
 using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
+using System.Runtime.CompilerServices;
 
 namespace BookStore.Business.Components
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        List<(Warehouse, Book)> ConfirmOrder(Order pOrder)
+        public int[][] ConfirmOrder(Order pOrder)
         {
             // warehouse choosing algorithm (multicover or set cover problem depending on implementation)
-
+            return [1][1];
             // return warehouse book tuples
         }
 
-        int GetStockLevelForBook(int warehouseId, int bookId)
+        public int GetStockLevelForBook(int warehouseId, int bookId)
         {
             // make a new database context
             using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
