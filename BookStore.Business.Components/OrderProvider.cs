@@ -22,6 +22,11 @@ namespace BookStore.Business.Components
             get { return ServiceLocator.Current.GetInstance<IUserProvider>(); }
         }
 
+        private IWarehouseProvider WarehouseProvider
+        {
+            get { return ServiceLocator.Current.GetInstance<IWarehouseProvider>(); }
+        }
+
         public void SubmitOrder(Entities.Order pOrder)
         {      
             using (TransactionScope lScope = new TransactionScope())
@@ -50,6 +55,9 @@ namespace BookStore.Business.Components
 
                         // add the modified Order tree to the Container (in Changed state)
                         lContainer.Orders.Add(pOrder);
+
+                        // confirm the order can be completed and from which warehouses
+                        List<(Warehouse, Book)> confirmedOrder = ConfirmOrder(pOrder);
 
                         // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
@@ -138,6 +146,21 @@ namespace BookStore.Business.Components
             {
                 throw new Exception("Error when transferring funds for order.");
             }
+        }
+
+        private List<(Warehouse, Book)> ConfirmOrder(Order pOrder)
+        {
+            try
+            {
+                return WarehouseProvider.ConfirmOrder(pOrder);
+            }
+            catch
+            {
+                // update this to return a message to the user that the order cant be confirmed
+                // rather than just crashing 
+                throw new Exception("Order could not be confirmed");
+            }
+            
         }
 
 
