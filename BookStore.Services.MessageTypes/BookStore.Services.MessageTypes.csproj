@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Warehouse.cs" />
     <Compile Include="Faults\InsufficientStockFault.cs" />
     <Compile Include="LoginCredential.cs" />
     <Compile Include="Book.cs" />

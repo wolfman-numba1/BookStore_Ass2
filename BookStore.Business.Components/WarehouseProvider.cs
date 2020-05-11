@@ -12,23 +12,9 @@ namespace BookStore.Business.Components
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        List<(Warehouse, Book)> ConfirmOrder(Order pOrder)
+        public int foo()
         {
-            // warehouse choosing algorithm (multicover or set cover problem depending on implementation)
-
-            // return warehouse book tuples
+            return 1;
         }
-
-        int GetStockLevelForBook(int warehouseId, int bookId)
-        {
-            // make a new database context
-            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
-            {
-                Warehouse targetWarehouse = lContainer.Warehouses.Where(warehouse => warehouse.Id == warehouseId).FirstOrDefault();
-
-                // pseudocode for now 
-                // basically plug the book id into the warehouse's stock hashmap
-                return targetWarehouse.stock[bookId];
-            }
     }
 }

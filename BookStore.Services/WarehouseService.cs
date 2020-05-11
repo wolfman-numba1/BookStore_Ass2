@@ -8,24 +8,11 @@ using BookStore.Services.MessageTypes;
 
 namespace BookStore.Services
 {
-    public class WarehouseService : WarehouseService
+    public class WarehouseService : IWarehouseService
     {
-        private IWarehouseProvider WarehouseProvider
+        public int foo()
         {
-            get
-            {
-                return ServiceFactory.GetService<IWarehouseProvider>();
-            }
-        }
-
-        List<(Warehouse, Book)> ConfirmOrder(Order pOrder)
-        {
-            return WarehouseProvider.ConfirmOrder(pOrder);
-        }
-
-        int GetStockLevelForBook(int warehouseId, int bookId)
-        {
-            return WarehouseProvider.GetStockLevelForBook(warehouseId, bookId);
+            return 1;
         }
     }
 }
