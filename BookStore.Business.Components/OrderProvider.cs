@@ -41,6 +41,9 @@ namespace BookStore.Business.Components
                         pOrder.OrderNumber = Guid.NewGuid();
                         pOrder.Store = "OnLine";
 
+                        // confirm the order can be completed and from which warehouses 
+                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+
                         // Book objects in pOrder are missing the link to their Stock tuple (and the Stock GUID field)
                         // so fix up the 'books' in the order with well-formed 'books' with 1:1 links to Stock tuples
                         foreach (OrderItem lOrderItem in pOrder.OrderItems)
@@ -55,8 +58,6 @@ namespace BookStore.Business.Components
 
                         // add the modified Order tree to the Container (in Changed state)
                         lContainer.Orders.Add(pOrder);
-
-                        // confirm the order can be completed and from which warehouses via confirmOrder()
 
                         // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
@@ -147,9 +148,9 @@ namespace BookStore.Business.Components
             }
         }
 
-        private void ConfirmOrder(Order pOrder)
+        private int[,] ConfirmOrder(Order pOrder)
         {
-           // to do
+            return WarehouseProvider.ProcessOrder(pOrder);
         }
 
         private int RetrieveBookStoreAccountNumber()

@@ -8,6 +8,6 @@ namespace BookStore.Business.Components.Interfaces
 {
     public interface IWarehouseProvider
     {
-        int foo();
+        int[,] ProcessOrder(Order pOrder);
     }
 }

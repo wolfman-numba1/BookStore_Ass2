@@ -12,9 +12,13 @@ namespace BookStore.Business.Components
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        public int foo()
+        public int[,] ProcessOrder(Order pOrder)
         {
-            return 1;
+            // return matrix [0, 0, 0] to indicate error
+            // otherwise [book, warehouse, quantity]
+            int[,] matrix = new int[1, 1];
+
+            return matrix;
         }
     }
 }
