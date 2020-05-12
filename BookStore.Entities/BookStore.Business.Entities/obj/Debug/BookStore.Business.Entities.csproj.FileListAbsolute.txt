@@ -15,3 +15,15 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookSt
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.dll.config
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\BookStore.Business.Entities.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\Common.dll.config
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\EntityFramework.xml
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.csproj.CopyComplete
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Entities\BookStore.Business.Entities\obj\Debug\BookStore.Business.Entities.pdb

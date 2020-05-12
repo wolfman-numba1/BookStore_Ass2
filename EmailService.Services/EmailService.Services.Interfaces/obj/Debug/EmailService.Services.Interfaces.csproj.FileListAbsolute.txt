@@ -21,3 +21,14 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailS
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.Services.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.Services.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.Business.Entities.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.MessageTypes.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.Business.Entities.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.Business.Entities.dll.config
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\bin\Debug\EmailService.MessageTypes.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.csproj.CopyComplete
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services.Interfaces\obj\Debug\EmailService.Services.Interfaces.pdb

@@ -20,3 +20,13 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookSt
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\BookStore.Services.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\BookStore.Services.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\BookStore.Services.MessageTypes.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\BookStore.Services.MessageTypes.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.csproj.CopyComplete
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\BookStore.Services.Interfaces\obj\Debug\BookStore.Services.Interfaces.pdb

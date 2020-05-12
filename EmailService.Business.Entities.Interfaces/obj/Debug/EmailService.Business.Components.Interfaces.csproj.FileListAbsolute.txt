@@ -17,3 +17,12 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailS
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.pdb
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\bin\Debug\EmailService.Business.Components.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\bin\Debug\EmailService.Business.Components.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\bin\Debug\EmailService.Business.Entities.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\bin\Debug\EmailService.Business.Entities.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\bin\Debug\EmailService.Business.Entities.dll.config
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.csproj.CopyComplete
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Business.Entities.Interfaces\obj\Debug\EmailService.Business.Components.Interfaces.pdb

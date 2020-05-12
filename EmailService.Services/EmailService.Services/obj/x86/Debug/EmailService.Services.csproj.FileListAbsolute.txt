@@ -50,3 +50,24 @@ C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailS
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.csproj.CopyComplete
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.dll
 C:\Users\gre403\Documents\Basser\COMP5348 2019\Group Project\GroupProject\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\AutoMapper.Net4.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Services.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Services.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\AutoMapper.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Business.Components.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Business.Entities.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.MessageTypes.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Services.Interfaces.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Business.Components.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.MessageTypes.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Services.Interfaces.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Business.Entities.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\EmailService.Business.Entities.dll.config
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\AutoMapper.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\AutoMapper.xml
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\bin\Debug\AutoMapper.Net4.pdb
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.csprojAssemblyReference.cache
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.csproj.CopyComplete
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.dll
+C:\Users\sophi\Documents\COMP5348\VisualStudioGit\EmailService.Services\EmailService.Services\obj\x86\Debug\EmailService.Services.pdb
