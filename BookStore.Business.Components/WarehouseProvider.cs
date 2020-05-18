@@ -14,11 +14,66 @@ namespace BookStore.Business.Components
     {
         public int[,] ProcessOrder(Order pOrder)
         {
-            // return matrix [0, 0, 0] to indicate error
-            // otherwise [book, warehouse, quantity]
-            int[,] matrix = new int[1, 1];
+            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+            {
+                int[,] result = new int[pOrder.OrderItems.Count(), 3];
 
-            return matrix;
+                int index = 0;
+
+                // for each individual order
+                foreach (OrderItem order in pOrder.OrderItems)
+                {
+                    // get the book for the order
+                    Book book = order.Book;
+
+                    // look at each of the warehouses that contain the book
+                    foreach (Warehouse wh in book.Stock.Warehouses)
+                    {
+                        // fill the results matrix
+                        result[index, 0] = book.Id;
+                        result[index, 1] = wh.Id;
+                        result[index, 2] = (int)wh.Quantity >= order.Quantity ? order.Quantity : (int)wh.Quantity;
+
+                        // if the warehouse has enough quanity in stock
+                        if (wh.Quantity >= order.Quantity)
+                        {
+                            // reduce the quantity of the warehouse 
+                            wh.Quantity -= order.Quantity;
+
+                            // empty the order
+                            order.Quantity = 0;
+                        } 
+                        // if the warehouse does not have enough in stock
+                        else
+                        {
+                            // reduce the quantity of the order
+                            order.Quantity -= (int )wh.Quantity;
+
+                            // empty the warehouse of it's stock for this book
+                            wh.Quantity = 0;
+                        }
+
+                        index++;
+                    }
+
+                    // if the if there is quantity left over then the order can't go through
+                    if (order.Quantity > 0)
+                    {
+                        // setup the error matrix
+                        int[,] error = new int[1, 1];
+                        error[0, 0] = -1;
+
+                        // return the error matrix
+                        return error;
+                    }
+                }
+
+                // save changes to the database
+                lContainer.SaveChanges();
+
+                // return the processed orders
+                return result;
+            }
         }
     }
 }

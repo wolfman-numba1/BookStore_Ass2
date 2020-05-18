@@ -44,6 +44,12 @@ namespace BookStore.Business.Components
                         // confirm the order can be completed and from which warehouses 
                         int[,] confirmedOrders = ConfirmOrder(pOrder);
 
+                        // an error has occured when confirming the order
+                        if (confirmedOrders[0, 0] == -1)
+                        {
+                            // handle error
+                        }
+
                         // Book objects in pOrder are missing the link to their Stock tuple (and the Stock GUID field)
                         // so fix up the 'books' in the order with well-formed 'books' with 1:1 links to Stock tuples
                         foreach (OrderItem lOrderItem in pOrder.OrderItems)
