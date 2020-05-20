@@ -57,7 +57,7 @@ namespace BookStore.Business.Components
                         // an error has occured when confirming the order
                         if (confirmedOrders[0, 0] == -1)
                         {
-                            // handle error
+                            throw new Exception("There is not enough stock in the warehouses to complete the order.");
                         }
 
                         // and update the stock levels
