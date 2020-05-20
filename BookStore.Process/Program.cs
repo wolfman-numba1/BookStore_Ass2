@@ -112,7 +112,7 @@ namespace BookStore.Process
                     {
                         Quantity = 7
                     };
-                    lGreatExpectationsStock.Warehouses.Add(B);
+                    lSoloistStock.Warehouses.Add(B);
                     lContainer.Stocks.Add(lSoloistStock);
                     lContainer.Warehouses.Add(B);
 
