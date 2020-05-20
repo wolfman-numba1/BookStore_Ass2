@@ -16,7 +16,14 @@ namespace BookStore.Business.Components
         {
             using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
             {
-                int[,] result = new int[pOrder.OrderItems.Count(), 3];
+                // make return matrix to maximum required height
+                int max_entries = 0;
+                foreach (OrderItem order in pOrder.OrderItems)
+                {
+                    max_entries += order.Quantity;
+                }
+
+                int[,] result = new int[max_entries, 3];
 
                 int index = 0;
 
