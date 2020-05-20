@@ -70,7 +70,7 @@ namespace BookStore.Business.Components
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
 
                         // ask the delivery service to organise delivery
-                        PlaceDeliveryForOrder(pOrder);
+                        PlaceDeliveryForOrder(pOrder, confirmedOrders);
 
                         // and save the order
                         lContainer.SaveChanges();
@@ -127,7 +127,7 @@ namespace BookStore.Business.Components
             });
         }
 
-        private void PlaceDeliveryForOrder(Order pOrder)
+        private void PlaceDeliveryForOrder(Order pOrder, int[,] confirmedOrders)
         {
             Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Book Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
