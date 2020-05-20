@@ -41,15 +41,6 @@ namespace BookStore.Business.Components
                         pOrder.OrderNumber = Guid.NewGuid();
                         pOrder.Store = "OnLine";
 
-                        // confirm the order can be completed and from which warehouses 
-                        int[,] confirmedOrders = ConfirmOrder(pOrder);
-
-                        // an error has occured when confirming the order
-                        if (confirmedOrders[0, 0] == -1)
-                        {
-                            // handle error
-                        }
-
                         // Book objects in pOrder are missing the link to their Stock tuple (and the Stock GUID field)
                         // so fix up the 'books' in the order with well-formed 'books' with 1:1 links to Stock tuples
                         foreach (OrderItem lOrderItem in pOrder.OrderItems)
@@ -59,6 +50,16 @@ namespace BookStore.Business.Components
                             System.Guid stockId = lOrderItem.Book.Stock.Id;
                             lOrderItem.Book.Stock = lContainer.Stocks.Where(stock => stockId == stock.Id).First();
                         }
+
+                        // confirm the order can be completed and from which warehouses 
+                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+
+                        // an error has occured when confirming the order
+                        if (confirmedOrders[0, 0] == -1)
+                        {
+                            // handle error
+                        }
+
                         // and update the stock levels
                         pOrder.UpdateStockLevels();
 
