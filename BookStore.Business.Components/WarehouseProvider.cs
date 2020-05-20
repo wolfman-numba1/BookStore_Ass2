@@ -49,6 +49,9 @@ namespace BookStore.Business.Components
 
                             // empty the order
                             order.Quantity = 0;
+
+                            // break the loop because the order has been completed 
+                            break;
                         } 
                         // if the warehouse does not have enough in stock
                         else
