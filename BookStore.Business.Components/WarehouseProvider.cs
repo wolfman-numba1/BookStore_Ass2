@@ -41,6 +41,9 @@ namespace BookStore.Business.Components
                         result[index, 1] = wh.Id;
                         result[index, 2] = (int)wh.Quantity >= order.Quantity ? order.Quantity : (int)wh.Quantity;
 
+                        // reduce the quantity of the stock (change will be discarded if the order can't go through)
+                        book.Stock.Quantity -= order.Quantity;
+
                         // if the warehouse has enough quanity in stock
                         if (wh.Quantity >= order.Quantity)
                         {
