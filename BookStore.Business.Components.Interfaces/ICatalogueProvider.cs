@@ -8,7 +8,7 @@ namespace BookStore.Business.Components.Interfaces
 {
     public interface ICatalogueProvider
     {
-        List<Business.Entities.Book> GetBook(int pOffset, int pCount);
+        List<Entities.Book> GetBook(int pOffset, int pCount);
         Book GetBookById(int pId);
     }
 }

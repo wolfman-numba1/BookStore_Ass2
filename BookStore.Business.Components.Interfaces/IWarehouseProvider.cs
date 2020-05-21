@@ -8,9 +8,6 @@ namespace BookStore.Business.Components.Interfaces
 {
     public interface IWarehouseProvider
     {
-
-        int ConfirmOrder(Order pOrder);
-
-        int GetStockLevelForBook(int warehouseId, int bookId);
+        int[,] ProcessOrder(Order pOrder);
     }
 }

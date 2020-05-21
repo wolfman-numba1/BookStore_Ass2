@@ -10,22 +10,9 @@ namespace BookStore.Services
 {
     public class WarehouseService : IWarehouseService
     {
-        private IWarehouseProvider WarehouseProvider
-        {
-            get
-            {
-                return ServiceFactory.GetService<IWarehouseProvider>();
-            }
-        }
-
-        public int ConfirmOrder(Order pOrder)
+        public int foo()
         {
             return 1;
-        }
-
-        public int GetStockLevelForBook(int warehouseId, int bookId)
-        {
-            return WarehouseProvider.GetStockLevelForBook(warehouseId, bookId);
         }
     }
 }

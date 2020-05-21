@@ -50,23 +50,30 @@ namespace BookStore.Business.Components
                             System.Guid stockId = lOrderItem.Book.Stock.Id;
                             lOrderItem.Book.Stock = lContainer.Stocks.Where(stock => stockId == stock.Id).First();
                         }
+
+                        // confirm the order can be completed and from which warehouses 
+                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+
+                        // an error has occured when confirming the order
+                        if (confirmedOrders[0, 0] == -1)
+                        {
+                            throw new Exception("There is not enough stock in the warehouses to complete the order.");
+                        }
+
                         // and update the stock levels
                         pOrder.UpdateStockLevels();
 
                         // add the modified Order tree to the Container (in Changed state)
                         lContainer.Orders.Add(pOrder);
 
-                        // confirm the order can be completed and from which warehouses
-                        int confirmedOrder = ConfirmOrder(pOrder);
-
-                        // ask the Bank service to transfer funds
+                        // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
 
                         //make this process sleep for 5 seconds and check to see if customer wants to cancel their order or not
                         //System.Threading.Thread.Sleep(5000);
 
                         // ask the delivery service to organise delivery
-                        PlaceDeliveryForOrder(pOrder);
+                        PlaceDeliveryForOrder(pOrder, confirmedOrders);
 
                         // and save the order
                         lContainer.SaveChanges();
@@ -123,7 +130,7 @@ namespace BookStore.Business.Components
             });
         }
 
-        private void PlaceDeliveryForOrder(Order pOrder)
+        private void PlaceDeliveryForOrder(Order pOrder, int[,] confirmedOrders)
         {
             Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Book Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
@@ -151,21 +158,10 @@ namespace BookStore.Business.Components
             }
         }
 
-        private int ConfirmOrder(Order pOrder)
+        private int[,] ConfirmOrder(Order pOrder)
         {
-            try
-            {
-                return WarehouseProvider.ConfirmOrder(pOrder);
-            }
-            catch
-            {
-                // update this to return a message to the user that the order cant be confirmed
-                // rather than just crashing 
-                throw new Exception("Order could not be confirmed");
-            }
-            
+            return WarehouseProvider.ProcessOrder(pOrder);
         }
-
 
         private int RetrieveBookStoreAccountNumber()
         {
