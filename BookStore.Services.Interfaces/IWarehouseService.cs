@@ -13,7 +13,7 @@ namespace BookStore.Services.Interfaces
     {
         [OperationContract]
         
-        List<(Warehouse, Book)> ConfirmOrder(Order pOrder);
+        int ConfirmOrder(Order pOrder);
 
         [OperationContract]
 

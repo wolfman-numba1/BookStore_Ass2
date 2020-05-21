@@ -57,10 +57,13 @@ namespace BookStore.Business.Components
                         lContainer.Orders.Add(pOrder);
 
                         // confirm the order can be completed and from which warehouses
-                        List<(int,int)> confirmedOrder = ConfirmOrder(pOrder);
+                        int confirmedOrder = ConfirmOrder(pOrder);
 
-                        // ask the Bank service to transfer fundss
+                        // ask the Bank service to transfer funds
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
+
+                        //make this process sleep for 5 seconds and check to see if customer wants to cancel their order or not
+                        //System.Threading.Thread.Sleep(5000);
 
                         // ask the delivery service to organise delivery
                         PlaceDeliveryForOrder(pOrder);
@@ -148,7 +151,7 @@ namespace BookStore.Business.Components
             }
         }
 
-        private List<(Warehouse, Book)> ConfirmOrder(Order pOrder)
+        private int ConfirmOrder(Order pOrder)
         {
             try
             {
