@@ -28,7 +28,7 @@ namespace BookStore.Business.Components
         }
 
         public void SubmitOrder(Entities.Order pOrder)
-        {      
+        {
             using (TransactionScope lScope = new TransactionScope())
             {
                 //LoadBookStocks(pOrder);
@@ -57,6 +57,7 @@ namespace BookStore.Business.Components
                         // an error has occured when confirming the order
                         if (confirmedOrders[0, 0] == -1)
                         {
+                            SendOrderFailedConfirmation(pOrder);
                             throw new Exception("There is not enough stock in the warehouses to complete the order.");
                         }
 
@@ -74,12 +75,12 @@ namespace BookStore.Business.Components
 
                         // and save the order
                         lContainer.SaveChanges();
-                        lScope.Complete();                    
+                        lScope.Complete();
                     }
                     catch (Exception lException)
                     {
                         SendOrderErrorMessage(pOrder, lException);
-                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries =  lContainer.ChangeTracker.Entries();
+                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries = lContainer.ChangeTracker.Entries();
                         throw;
                     }
                 }
@@ -104,7 +105,7 @@ namespace BookStore.Business.Components
             {
                 foreach (OrderItem lOrderItem in pOrder.OrderItems)
                 {
-                    lOrderItem.Book.Stock = lContainer.Stocks.Where((pStock) => pStock.Book.Id == lOrderItem.Book.Id).FirstOrDefault();    
+                    lOrderItem.Book.Stock = lContainer.Stocks.Where((pStock) => pStock.Book.Id == lOrderItem.Book.Id).FirstOrDefault();
                 }
             }
         }
@@ -114,7 +115,7 @@ namespace BookStore.Business.Components
             EmailProvider.SendMessage(new EmailMessage()
             {
                 ToAddress = pOrder.Customer.Email,
-                Message = "There was an error in processsing your order " + pOrder.OrderNumber + ": "+ pException.Message + ". Please contact Book Store"
+                Message = "There was an error in processsing your order " + pOrder.OrderNumber + ": " + pException.Message + ". Please contact Book Store"
             });
         }
 
@@ -124,6 +125,15 @@ namespace BookStore.Business.Components
             {
                 ToAddress = pOrder.Customer.Email,
                 Message = "Your order " + pOrder.OrderNumber + " has been placed"
+            });
+        }
+
+        private void SendOrderFailedConfirmation(Order pOrder)
+        {
+            EmailProvider.SendMessage(new EmailMessage()
+            {
+                ToAddress = pOrder.Customer.Email,
+                Message = "Your order " + pOrder.OrderNumber + " has failed because there is not enough stock."
             });
         }
 
