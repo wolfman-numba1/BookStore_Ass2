@@ -31,10 +31,13 @@ namespace BookStore.Business.Components
                 }
 
                 int index = 0;
+                int orderQuantity = 0;
 
                 // for each individual order
                 foreach (OrderItem order in pOrder.OrderItems)
                 {
+                    orderQuantity = order.Quantity;
+
                     // get the book for the order
                     Book book = order.Book;
 
@@ -44,19 +47,19 @@ namespace BookStore.Business.Components
                         // fill the results matrix
                         result[index][0] = book.Id;
                         result[index][1] = wh.Id;
-                        result[index][2] = (int)wh.Quantity >= order.Quantity ? order.Quantity : (int)wh.Quantity;
+                        result[index][2] = (int)wh.Quantity >= orderQuantity ? orderQuantity : (int)wh.Quantity;
 
                         // reduce the quantity of the stock (change will be discarded if the order can't go through)
-                        book.Stock.Quantity -= order.Quantity;
+                        book.Stock.Quantity -= orderQuantity;
 
                         // if the warehouse has enough quanity in stock
-                        if (wh.Quantity >= order.Quantity)
+                        if (wh.Quantity >= orderQuantity)
                         {
                             // reduce the quantity of the warehouse 
-                            wh.Quantity -= order.Quantity;
+                            wh.Quantity -= orderQuantity;
 
                             // empty the order
-                            order.Quantity = 0;
+                            orderQuantity = 0;
 
                             // break the loop because the order has been completed 
                             break;
@@ -65,7 +68,7 @@ namespace BookStore.Business.Components
                         else
                         {
                             // reduce the quantity of the order
-                            order.Quantity -= (int )wh.Quantity;
+                            orderQuantity -= (int )wh.Quantity;
 
                             // empty the warehouse of it's stock for this book
                             wh.Quantity = 0;
@@ -75,7 +78,7 @@ namespace BookStore.Business.Components
                     }
 
                     // if the if there is quantity left over then the order can't go through
-                    if (order.Quantity > 0)
+                    if (orderQuantity > 0)
                     {
                         // setup the error matrix
                         result[0][0] = -1;
