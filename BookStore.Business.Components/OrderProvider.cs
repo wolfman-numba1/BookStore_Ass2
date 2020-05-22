@@ -52,10 +52,10 @@ namespace BookStore.Business.Components
                         }
 
                         // confirm the order can be completed and from which warehouses 
-                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+                        int[][] confirmedOrders = ConfirmOrder(pOrder);
 
                         // an error has occured when confirming the order
-                        if (confirmedOrders[0, 0] == -1)
+                        if (confirmedOrders[0][0] == -1)
                         {
                             SendOrderFailedConfirmation(pOrder);
                             throw new Exception("There is not enough stock in the warehouses to complete the order.");
@@ -137,7 +137,7 @@ namespace BookStore.Business.Components
             });
         }
 
-        private void PlaceDeliveryForOrder(Order pOrder, int[,] confirmedOrders)
+        private void PlaceDeliveryForOrder(Order pOrder, int[][] confirmedOrders)
         {
             Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Book Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
@@ -147,7 +147,9 @@ namespace BookStore.Business.Components
                 SourceAddress = lDelivery.SourceAddress,
                 DestinationAddress = lDelivery.DestinationAddress,
                 DeliveryNotificationAddress = "net.tcp://localhost:9010/DeliveryNotificationService"
-            });
+            },
+            confirmedOrders
+            );
 
             lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
             pOrder.Delivery = lDelivery;   
@@ -165,7 +167,7 @@ namespace BookStore.Business.Components
             }
         }
 
-        private int[,] ConfirmOrder(Order pOrder)
+        private int[][] ConfirmOrder(Order pOrder)
         {
             return WarehouseProvider.ProcessOrder(pOrder);
         }

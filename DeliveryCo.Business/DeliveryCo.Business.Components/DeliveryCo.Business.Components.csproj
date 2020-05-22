@@ -56,12 +56,33 @@
   <ItemGroup>
     <Compile Include="DeliveryNotificationServiceFactory.cs" />
     <Compile Include="DeliveryProvider.cs" />
+    <Compile Include="ExternalServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Bank.Business\Bank.Business.Components\Bank.Business.Components.csproj">
+      <Project>{9dc3d9e0-63fd-4901-8203-0739f35e74ba}</Project>
+      <Name>Bank.Business.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BookStore.Business.Components.Interfaces\BookStore.Business.Components.Interfaces.csproj">
+      <Project>{2851cef3-00f9-4afb-9306-0d6e0bdd45e3}</Project>
+      <Name>BookStore.Business.Components.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BookStore.Business.Components\BookStore.Business.Components.csproj">
+      <Project>{8487af38-aa02-40b8-8ddd-898d0fb40e33}</Project>
+      <Name>BookStore.Business.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DeliveryCo.Services\DeliveryCo.Services.Interfaces\DeliveryCo.Services.Interfaces.csproj">
       <Project>{7E7A8D7D-87CF-420F-A72B-8F4A258BB48A}</Project>
       <Name>DeliveryCo.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EmailService.Services\EmailService.Services.Interfaces\EmailService.Services.Interfaces.csproj">
+      <Project>{361095e5-34fd-4987-bce7-090d4e317918}</Project>
+      <Name>EmailService.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EmailService.Services\EmailService.Services\EmailService.Services.csproj">
+      <Project>{16f35917-9906-45fd-81b6-b06fcc8d19b6}</Project>
+      <Name>EmailService.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\DeliveryCo.Business.Components.Interfaces\DeliveryCo.Business.Components.Interfaces.csproj">
       <Project>{4EF559A7-8607-485F-8782-273B61B720A9}</Project>
