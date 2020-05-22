@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="DeliveryNotificationServiceFactory.cs" />
     <Compile Include="DeliveryProvider.cs" />
-    <Compile Include="ExternalServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
