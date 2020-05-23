@@ -13,7 +13,7 @@ namespace BookStore.Business.Components
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        public int[,] ProcessOrder(Order pOrder)
+        public int[][] ProcessOrder(Order pOrder)
         {
             using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
             {
@@ -24,7 +24,12 @@ namespace BookStore.Business.Components
                     max_entries += order.Quantity;
                 }
 
-                int[,] result = new int[max_entries, 3];
+                int[][] result = new int[max_entries][];
+
+                for (int i = 0; i < max_entries; i++)
+                {
+                    result[i] = new int[] { 0, 0, 0 };
+                }
 
                 int index = 0;
 
@@ -38,9 +43,9 @@ namespace BookStore.Business.Components
                     foreach (Warehouse wh in book.Stock.Warehouses)
                     {
                         // fill the results matrix
-                        result[index, 0] = book.Id;
-                        result[index, 1] = wh.Id;
-                        result[index, 2] = (int)wh.Quantity >= order.Quantity ? order.Quantity : (int)wh.Quantity;
+                        result[index][0] = book.Id;
+                        result[index][1] = wh.Id;
+                        result[index][2] = (int)wh.Quantity >= order.Quantity ? order.Quantity : (int)wh.Quantity;
 
                         // reduce the quantity of the stock (change will be discarded if the order can't go through)
                         book.Stock.Quantity -= order.Quantity;
@@ -74,11 +79,10 @@ namespace BookStore.Business.Components
                     if (order.Quantity > 0)
                     {
                         // setup the error matrix
-                        int[,] error = new int[1, 1];
-                        error[0, 0] = -1;
+                        result[0][0] = -1;
 
                         // return the error matrix
-                        return error;
+                        return result;
                     }
                 }
 
