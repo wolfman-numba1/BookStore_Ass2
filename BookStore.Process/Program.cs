@@ -18,6 +18,7 @@ using System.ServiceModel.Description;
 using BookStore.Business.Components.Interfaces;
 using BookStore.WebClient.CustomAuth;
 using System.Collections;
+using System.Media;
 
 namespace BookStore.Process
 {
@@ -203,6 +204,12 @@ namespace BookStore.Process
                     lHost.Open();
                     lHosts.Add(lHost);
                 }
+                //System.Diagnostics.Process[] pname = System.Diagnostics.Process.GetProcesses();
+                //foreach(System.Diagnostics.Process x in pname)
+                //{
+                //    Console.WriteLine(x.ProcessName);
+                //}
+                Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
                 Console.WriteLine("BookStore Service Started, press Q key to quit");
                 while (Console.ReadKey().Key != ConsoleKey.Q) ;
             }

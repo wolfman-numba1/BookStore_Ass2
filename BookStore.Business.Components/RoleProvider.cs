@@ -14,8 +14,6 @@ namespace BookStore.Business.Components
             return GetRolesForUserName(pUser.Name);
         }
 
-
-
         public List<Role> GetRolesForUserName(string pUserName)
         {
             using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
