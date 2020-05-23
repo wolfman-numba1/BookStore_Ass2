@@ -18,6 +18,7 @@ namespace BookStore.Business.Entities
         public Stock()
         {
             this.Warehouses = new HashSet<Warehouse>();
+            this.Id = Guid.NewGuid();
         }
     
         public System.Guid Id { get; set; }
