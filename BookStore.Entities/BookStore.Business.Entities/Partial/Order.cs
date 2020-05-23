@@ -21,9 +21,10 @@ namespace BookStore.Business.Entities
                 }
             }
         }
-        public void UpdateStockCancelledOrder()
+
+        public void ResetStockLevels()
         {
-            foreach(OrderItem lItem in this.OrderItems)
+            foreach (OrderItem lItem in this.OrderItems)
             {
                 lItem.Book.Stock.Quantity += lItem.Quantity;
             }
