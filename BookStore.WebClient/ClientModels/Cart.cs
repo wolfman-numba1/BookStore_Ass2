@@ -33,20 +33,33 @@ namespace BookStore.WebClient.ClientModels
         {
             mOrderItems.Clear();
         }
-
-        public void SubmitOrderAndClearCart(UserCache pUserCache)
+        public Order ConfirmOrder(UserCache pUserCache)
         {
-
-            Order lOrder = new Order();
-            lOrder.OrderDate = DateTime.Now;
-            lOrder.Customer = pUserCache.Model;
-            lOrder.Status = 0;
+            Order lOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                Customer = pUserCache.Model,
+                Status = 0
+            };
             foreach (OrderItem lItem in mOrderItems)
             {
                 lOrder.OrderItems.Add(lItem);
             }
             lOrder.Total = Convert.ToDouble(ComputeTotalValue());
+            Order UserOrder = ServiceFactory.Instance.OrderService.ConfirmOrder(lOrder);
 
+            return UserOrder;
+        }
+
+        public void CancelOrder(Order UserOrder, UserCache pUserCache)
+        {
+            ServiceFactory.Instance.OrderService.CancelOrder(UserOrder);
+        }
+
+        //submit delivery and clear cart 
+        public void SubmitOrderAndClearCart(UserCache pUserCache)
+        {
+            //need to pass the user's order here as well
             ServiceFactory.Instance.OrderService.SubmitOrder(lOrder);
             pUserCache.UpdateUserCache();
             Clear();

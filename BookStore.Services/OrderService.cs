@@ -22,6 +22,39 @@ namespace BookStore.Services
             }
         }
 
+        public Order ConfirmOrder(Order pOrder)
+        {
+            try
+            { 
+                var internalResult = OrderProvider.ConfirmOrder(
+                    MessageTypeConverter.Instance.Convert<BookStore.Services.MessageTypes.Order,BookStore.Business.Entities.Order>
+                    (pOrder));
+                var externalResult = MessageTypeConverter.Instance.Convert<BookStore.Business.Entities.Order, BookStore.Services.MessageTypes.Order>
+                    (internalResult);
+                return externalResult;
+            }
+            catch(BookStore.Business.Entities.InsufficientStockException ise)
+            {
+                throw new FaultException<InsufficientStockFault>(
+                    new InsufficientStockFault() { ItemName = ise.ItemName });
+            }
+        }
+
+        public void CancelOrder(Order UserOrder)
+        {
+            try
+            {
+                OrderProvider.CancelOrder(
+                    MessageTypeConverter.Instance.Convert<BookStore.Services.MessageTypes.Order,
+                    BookStore.Business.Entities.Order>(UserOrder));
+            }
+            //fix this later
+            catch (BookStore.Business.Entities.InsufficientStockException ise)
+            {
+                throw new FaultException<InsufficientStockFault>(
+                    new InsufficientStockFault() { ItemName = ise.ItemName });
+            }
+        }
         public void SubmitOrder(Order pOrder)
         {
             try

@@ -27,8 +27,8 @@ namespace BookStore.Business.Components
             get { return ServiceLocator.Current.GetInstance<IWarehouseProvider>(); }
         }
 
-        public void SubmitOrder(Entities.Order pOrder)
-        {      
+        public Order ConfirmOrder(Entities.Order pOrder)
+        {
             using (TransactionScope lScope = new TransactionScope())
             {
                 //LoadBookStocks(pOrder);
@@ -52,7 +52,7 @@ namespace BookStore.Business.Components
                         }
 
                         // confirm the order can be completed and from which warehouses 
-                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+                        int[,] confirmedOrders = ConfirmOrderWarehouseLogic(pOrder);
 
                         // an error has occured when confirming the order
                         if (confirmedOrders[0, 0] == -1)
@@ -69,8 +69,58 @@ namespace BookStore.Business.Components
                         // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
 
-                        //make this process sleep for 5 seconds and check to see if customer wants to cancel their order or not
-                        //System.Threading.Thread.Sleep(5000);
+                        // and save the order
+                        lContainer.SaveChanges();
+                        lScope.Complete();
+                    }
+                    catch (Exception lException)
+                    {
+                        SendOrderErrorMessage(pOrder, lException);
+                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries = lContainer.ChangeTracker.Entries();
+                        throw;
+                    }
+                }
+            }
+            return pOrder;
+        }
+        public void CancelOrder(Entities.Order UserOrder)
+        {
+            using (TransactionScope lScope = new TransactionScope())
+            {
+                using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+                {
+
+                    //re-add the stock quantities from the order back to the stock 
+                    UserOrder.UpdateStockCancelledOrder();
+
+                    //need a method for re-adding stock to warehouses as well
+                    UpdateWarehouseStock(UserOrder);
+
+                    //give the customer their money back
+                    TransferFundsToCustomer(UserProvider.ReadUserById(UserOrder.Customer.Id).BankAccountNumber, UserOrder.Total ?? 0.0);
+
+                    //delete order from order table
+                    string SQL = "DELETE FROM [dbo].Orders WHERE OrderNumber = {0}";
+                    lContainer.Database.ExecuteSqlCommand(SQL, UserOrder.OrderNumber);
+
+                    lContainer.SaveChanges();
+                    lScope.Complete();
+                }
+            }
+        }
+        public void SubmitOrder(Entities.Order pOrder)
+        {      
+            using (TransactionScope lScope = new TransactionScope())
+            {
+                //LoadBookStocks(pOrder);
+                //MarkAppropriateUnchangedAssociations(pOrder);
+
+                using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+                {
+                    try
+                    {
+                        //get the warehouses again for logging when doing the delivery 
+                        int[,] confirmedOrders = ConfirmOrderWarehouseLogic(pOrder);
 
                         // ask the delivery service to organise delivery
                         PlaceDeliveryForOrder(pOrder, confirmedOrders);
@@ -157,8 +207,19 @@ namespace BookStore.Business.Components
                 throw new Exception("Error when transferring funds for order.");
             }
         }
+        private void TransferFundsToCustomer(int pCustomerAccountNumber, double pTotal)
+        {
+            try
+            {
+                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, RetrieveBookStoreAccountNumber(), pCustomerAccountNumber);
+            }
+            catch
+            {
+                throw new Exception("Error when transferring funds for cancelled order.");
+            }
+        }
 
-        private int[,] ConfirmOrder(Order pOrder)
+        private int[,] ConfirmOrderWarehouseLogic(Order pOrder)
         {
             return WarehouseProvider.ProcessOrder(pOrder);
         }
