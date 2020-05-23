@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript" language="javascript">
+function SubmitOrder() {
+    @Html.Action("SubmitOrder", "CartController", new { UserOrder = Model.CurrentOrder })
+
+    window.onload = function () {
+        this.SubmitOrder();
+    }
+}
+</script>
+
 <h2>Thank you for shopping with us!</h2>
 <p>Your delivery should be confirmed in 5 seconds</p>
 <p>Please click the following link if you would like to cancel your order. </p>

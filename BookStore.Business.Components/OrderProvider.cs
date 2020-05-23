@@ -92,7 +92,7 @@ namespace BookStore.Business.Components
                 {
 
                     //re-add the stock quantities from the order back to the stock 
-                    UserOrder.UpdateStockCancelledOrder();
+                    UserOrder.ResetStockLevels();
 
                     //need a method for re-adding stock to warehouses as well
                     //UpdateWarehouseStock(UserOrder);

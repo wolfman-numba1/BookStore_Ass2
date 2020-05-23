@@ -65,13 +65,11 @@ namespace BookStore.WebClient.Controllers
             return View();
         }
         //fix this submitOrder method below
-        public ActionResult SubmitOrder(Cart pCart, UserCache pUser)
+        public ActionResult SubmitOrder(Order UserOrder, Cart pCart, UserCache pUser)
         {
             try
             {
-                //need to also pass the User's order that was
-                //made in the confirm order method. 
-                pCart.SubmitOrderAndClearCart(pUser);
+                pCart.SubmitOrderAndClearCart(UserOrder, pUser);
             }
             catch
             {
