@@ -92,5 +92,24 @@ namespace BookStore.Business.Components
                 return result;
             }
         }
+
+        public void resetStockLevels(int[][] confirmedOrders)
+        {
+            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+            {
+                // for each warehouse involved in the confirmed orders
+                for (int i = 0; i < confirmedOrders.GetLength(0); i++)
+                {
+                    // get the warehouse
+                    Warehouse wh = lContainer.Warehouses.Find(confirmedOrders[i][1]);
+
+                    // reset the quantity for the warehouse 
+                    wh.Quantity += confirmedOrders[i][2];
+                }
+
+                // save changes to the database
+                lContainer.SaveChanges();
+            }
+        }
     }
 }
