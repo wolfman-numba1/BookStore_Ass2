@@ -12,6 +12,13 @@ namespace BookStore.Services.Interfaces
     {
         [OperationContract]
         [FaultContract(typeof(InsufficientStockFault))]
+        Order ConfirmOrder(Order pOrder);
+
+        [OperationContract]
+        void CancelOrder(Order UserOrder);
+
+        [OperationContract]
+        [FaultContract(typeof(InsufficientStockFault))]
         void SubmitOrder(Order pOrder);
     }
 }

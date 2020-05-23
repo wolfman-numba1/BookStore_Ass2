@@ -7,6 +7,7 @@ using BookStore.Business.Entities;
 using System.Transactions;
 using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
+using System.Runtime.CompilerServices;
 
 namespace BookStore.Business.Components
 {

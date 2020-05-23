@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thank you for shopping with us!</h2>
+<p>Your delivery should be confirmed in 5 seconds</p>
+<p>Please click the following link if you would like to cancel your order. </p>
+<p>@Html.ActionLink("Cancel order", "CancelOrder", new { UserOrder = Model.CurrentOrder})</p>
+

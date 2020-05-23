@@ -21,5 +21,12 @@ namespace BookStore.Business.Entities
                 }
             }
         }
+        public void UpdateStockCancelledOrder()
+        {
+            foreach(OrderItem lItem in this.OrderItems)
+            {
+                lItem.Book.Stock.Quantity += lItem.Quantity;
+            }
+        }
     }
 }

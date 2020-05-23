@@ -22,7 +22,16 @@ namespace BookStore.WebClient.ViewModels
         {
             get
             {
-                return CatalogueService.GetBook(0, Int32.MaxValue);
+                try
+                {
+                    return CatalogueService.GetBook(0, Int32.MaxValue);
+                }
+                catch (System.ServiceModel.EndpointNotFoundException)
+                {
+                    System.Diagnostics.Debug.WriteLine(HttpContext.Current.Server.MapPath("."));
+                    System.Diagnostics.Process.Start(HttpContext.Current.Server.MapPath(".") + "\\..\\..\\BookStore.Process\\bin\\Debug\\BookStore.Process.exe");
+                    return CatalogueService.GetBook(0, Int32.MaxValue);
+                }
             }
         }
     }
