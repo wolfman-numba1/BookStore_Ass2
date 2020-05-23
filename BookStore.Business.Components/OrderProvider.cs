@@ -28,7 +28,7 @@ namespace BookStore.Business.Components
         }
 
         public void SubmitOrder(Entities.Order pOrder)
-        {      
+        {
             using (TransactionScope lScope = new TransactionScope())
             {
                 //LoadBookStocks(pOrder);
@@ -52,11 +52,12 @@ namespace BookStore.Business.Components
                         }
 
                         // confirm the order can be completed and from which warehouses 
-                        int[,] confirmedOrders = ConfirmOrder(pOrder);
+                        int[][] confirmedOrders = ConfirmOrder(pOrder);
 
                         // an error has occured when confirming the order
-                        if (confirmedOrders[0, 0] == -1)
+                        if (confirmedOrders[0][0] == -1)
                         {
+                            SendOrderFailedConfirmation(pOrder);
                             throw new Exception("There is not enough stock in the warehouses to complete the order.");
                         }
 
@@ -74,12 +75,12 @@ namespace BookStore.Business.Components
 
                         // and save the order
                         lContainer.SaveChanges();
-                        lScope.Complete();                    
+                        lScope.Complete();
                     }
                     catch (Exception lException)
                     {
                         SendOrderErrorMessage(pOrder, lException);
-                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries =  lContainer.ChangeTracker.Entries();
+                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries = lContainer.ChangeTracker.Entries();
                         throw;
                     }
                 }
@@ -104,7 +105,7 @@ namespace BookStore.Business.Components
             {
                 foreach (OrderItem lOrderItem in pOrder.OrderItems)
                 {
-                    lOrderItem.Book.Stock = lContainer.Stocks.Where((pStock) => pStock.Book.Id == lOrderItem.Book.Id).FirstOrDefault();    
+                    lOrderItem.Book.Stock = lContainer.Stocks.Where((pStock) => pStock.Book.Id == lOrderItem.Book.Id).FirstOrDefault();
                 }
             }
         }
@@ -114,7 +115,7 @@ namespace BookStore.Business.Components
             EmailProvider.SendMessage(new EmailMessage()
             {
                 ToAddress = pOrder.Customer.Email,
-                Message = "There was an error in processsing your order " + pOrder.OrderNumber + ": "+ pException.Message + ". Please contact Book Store"
+                Message = "There was an error in processsing your order " + pOrder.OrderNumber + ": " + pException.Message + ". Please contact Book Store"
             });
         }
 
@@ -127,7 +128,16 @@ namespace BookStore.Business.Components
             });
         }
 
-        private void PlaceDeliveryForOrder(Order pOrder, int[,] confirmedOrders)
+        private void SendOrderFailedConfirmation(Order pOrder)
+        {
+            EmailProvider.SendMessage(new EmailMessage()
+            {
+                ToAddress = pOrder.Customer.Email,
+                Message = "Your order " + pOrder.OrderNumber + " has failed because there is not enough stock."
+            });
+        }
+
+        private void PlaceDeliveryForOrder(Order pOrder, int[][] confirmedOrders)
         {
             Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Book Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
@@ -137,7 +147,9 @@ namespace BookStore.Business.Components
                 SourceAddress = lDelivery.SourceAddress,
                 DestinationAddress = lDelivery.DestinationAddress,
                 DeliveryNotificationAddress = "net.tcp://localhost:9010/DeliveryNotificationService"
-            });
+            },
+            confirmedOrders
+            );
 
             lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
             pOrder.Delivery = lDelivery;   
@@ -155,7 +167,7 @@ namespace BookStore.Business.Components
             }
         }
 
-        private int[,] ConfirmOrder(Order pOrder)
+        private int[][] ConfirmOrder(Order pOrder)
         {
             return WarehouseProvider.ProcessOrder(pOrder);
         }

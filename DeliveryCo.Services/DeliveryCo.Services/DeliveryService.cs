@@ -21,11 +21,11 @@ namespace DeliveryCo.Services
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
-        public Guid SubmitDelivery(DeliveryInfo pDeliveryInfo)
+        public Guid SubmitDelivery(DeliveryInfo pDeliveryInfo, int[][] confirmedOrder)
         {
             return DeliveryProvider.SubmitDelivery(
                 MessageTypeConverter.Instance.Convert<DeliveryCo.MessageTypes.DeliveryInfo, 
-                DeliveryCo.Business.Entities.DeliveryInfo>(pDeliveryInfo)                
+                DeliveryCo.Business.Entities.DeliveryInfo>(pDeliveryInfo), confirmedOrder
             );
         }
     }

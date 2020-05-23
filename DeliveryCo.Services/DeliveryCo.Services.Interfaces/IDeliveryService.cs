@@ -12,6 +12,6 @@ namespace DeliveryCo.Services.Interfaces
     {
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        Guid SubmitDelivery(DeliveryInfo pDeliveryInfo);
+        Guid SubmitDelivery(DeliveryInfo pDeliveryInfo, int[][] confirmedOrder);
     }
 }
