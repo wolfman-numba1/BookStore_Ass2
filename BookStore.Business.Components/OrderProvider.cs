@@ -4,13 +4,20 @@ using System.Linq;
 using System.Text;
 using BookStore.Business.Components.Interfaces;
 using BookStore.Business.Entities;
+using Bank.Business.Components;
 using System.Transactions;
 using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
+using System.Configuration;
+using System.Messaging;
+using Bank.Business.Entities;
+
+
+
 
 namespace BookStore.Business.Components
 {
-    public class OrderProvider : IOrderProvider
+    public class OrderProvider : IOrderProvider, ITransferNotificationProvider
     {
         public IEmailProvider EmailProvider
         {
@@ -59,7 +66,7 @@ namespace BookStore.Business.Components
                         // confirm the order can be completed and from which warehouses via confirmOrder()
 
                         // ask the Bank service to transfer fundss
-                        TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
+                        TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0, pOrder.OrderNumber.ToString());
 
                         // ask the delivery service to organise delivery
                         PlaceDeliveryForOrder(pOrder);
@@ -135,11 +142,24 @@ namespace BookStore.Business.Components
             pOrder.Delivery = lDelivery;   
         }
 
-        private void TransferFundsFromCustomer(int pCustomerAccountNumber, double pTotal)
+        private void TransferFundsFromCustomer(int pCustomerAccountNumber, double pTotal, String reference)
         {
             try
             {
-                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber());
+                //   TransferServiceClient lClient = new TransferServiceClient();
+                //  String orderServiceAddress = "net.msmq://localhost/private/TransferNotificationQueueTransacted";
+
+
+               //string queueName = ".\\private$\\BankTransferTransacted";
+               string queueName = ".\\private$\\TransferNotifyMessageQueue";
+               string queueBank = ".\\private$\\BankTransferTransacted";
+               string queueNotifyReference = "net.msmq://localhost/private/TransferNotifyMessageQueue";
+               string queueReference = "net.msmq://localhost/private/BankTransferTransacted";
+
+                EnsureQueueExists(queueName);
+
+                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber(), queueNotifyReference, reference);
+
             }
             catch
             {
@@ -157,6 +177,80 @@ namespace BookStore.Business.Components
             return 123;
         }
 
+        private static void EnsureQueueExists(string queueName)
+        {
+            // Create the transacted MSMQ queue if necessary.
+            if (!MessageQueue.Exists(queueName))
+                MessageQueue.Create(queueName, true);
+
+            OperationOutcome outcome = new OperationOutcome();
+            outcome.Outcome = OperationOutcome.OperationOutcomeResult.Successful;
+            outcome.Message = "HAD TO CREATE A NEW QUEUE called" + queueName ;
+        }
+
+
+        public void NotifyTransferSuccess(string pOrderNumber)
+        {
+            using (var lScope = new TransactionScope())
+            {
+                var orderNumber = Guid.Parse(pOrderNumber);
+                using (var lContainer = new BookStoreEntityModelContainer())
+                {
+                    // Books, Stocks
+                   // Include("OrderItems")
+                    var order = lContainer.Orders.Include("Customer").Include("OrderItems.Books.Stocks").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
+                    try
+                    {
+                        if (order != null)
+                        {
+                            order.UpdateStockLevels();
+
+                            PlaceDeliveryForOrder(order);
+                           // lContainer.Orders.ApplyChanges(order);
+                          
+
+                            lContainer.SaveChanges();
+                            lScope.Complete();
+                        }
+                    }
+                    catch (Exception lException)
+                    {
+                        SendOrderErrorMessage(order, lException);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void NotifyTransferFailed(string pOrderNumber, string reason)
+        {
+            using (var lScope = new TransactionScope())
+            {
+                var orderNumber = Guid.Parse(pOrderNumber);
+                using (var lContainer = new BookStoreEntityModelContainer())
+                {
+                    var order = lContainer.Orders.Include("Customer").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
+                    try
+                    {
+                        if (order != null)
+                        {
+                            EmailProvider.SendMessage(new EmailMessage()
+                            {
+                                ToAddress = order.Customer.Email,
+                                Message = "There was an error in processsing your order " + order.OrderNumber + ": " + reason + ". Please contact Video Store"
+                            });
+
+                           lScope.Complete();
+                        }
+                    }
+                    catch (Exception lException)
+                    {
+                        SendOrderErrorMessage(order, lException);
+                        throw;
+                    }
+                }
+            }
+        }
 
     }
 }

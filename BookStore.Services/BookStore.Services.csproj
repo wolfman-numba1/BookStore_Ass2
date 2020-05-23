@@ -63,6 +63,7 @@
     <Compile Include="DeliveryNotificationService.cs" />
     <Compile Include="MessageTypeConverter.cs" />
     <Compile Include="RoleService.cs" />
+    <Compile Include="TransferNotificationService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +71,10 @@
     <Compile Include="WarehouseService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bank.Services\Bank.Services.Interfaces\Bank.Services.Interfaces.csproj">
+      <Project>{3317f30a-a62c-474d-8d2b-b91605ecf202}</Project>
+      <Name>Bank.Services.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DeliveryCo.Services\DeliveryCo.Services.Interfaces\DeliveryCo.Services.Interfaces.csproj">
       <Project>{7e7a8d7d-87cf-420f-a72b-8f4a258bb48a}</Project>
       <Name>DeliveryCo.Services.Interfaces</Name>
