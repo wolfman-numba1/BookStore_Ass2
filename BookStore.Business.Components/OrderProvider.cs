@@ -100,10 +100,10 @@ namespace BookStore.Business.Components
                     //give the customer their money back
                     TransferFundsToCustomer(UserProvider.ReadUserById(UserOrder.Customer.Id).BankAccountNumber, UserOrder.Total ?? 0.0);
 
-                    //delete order from order table
-                    string SQL = "DELETE FROM [dbo].Orders WHERE OrderNumber = {0}";
-                    lContainer.Database.ExecuteSqlCommand(SQL, UserOrder.OrderNumber);
+                    //soft delete order from order table
+                    UserOrder.Deleted = true;
 
+                    //save changes
                     lContainer.SaveChanges();
                     lScope.Complete();
                 }

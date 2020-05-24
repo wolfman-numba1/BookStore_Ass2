@@ -54,6 +54,7 @@ namespace BookStore.WebClient.ClientModels
         public void CancelOrder(int UserOrder, UserCache pUserCache)
         {
             ServiceFactory.Instance.OrderService.CancelOrder(UserOrder);
+            Clear();
         }
 
         //submit delivery and clear cart 

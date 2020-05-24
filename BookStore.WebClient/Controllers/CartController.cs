@@ -82,7 +82,7 @@ namespace BookStore.WebClient.Controllers
 
         public ActionResult ContinueShopping()
         {
-            return View(new CatalogueViewModel());
+            return RedirectToAction("ListBooks", "Store"); ;
         }
 
         public ActionResult ErrorPage()
