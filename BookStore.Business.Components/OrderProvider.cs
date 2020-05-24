@@ -10,7 +10,10 @@ using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
 using System.Configuration;
 using System.Messaging;
+using Bank.Services.Interfaces;
 using Bank.Business.Entities;
+using System.Messaging;
+using System.ServiceModel;
 
 
 
@@ -40,11 +43,14 @@ namespace BookStore.Business.Components
             {
                 //LoadBookStocks(pOrder);
                 //MarkAppropriateUnchangedAssociations(pOrder);
+               // Console.WriteLine("Inside submit order");
 
                 using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
                 {
                     try
                     {
+                        //Console.WriteLine("Inside submit order ");
+
                         pOrder.OrderNumber = Guid.NewGuid();
                         pOrder.Store = "OnLine";
 
@@ -68,12 +74,19 @@ namespace BookStore.Business.Components
                         // ask the Bank service to transfer fundss
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0, pOrder.OrderNumber.ToString());
 
+                        // add the modified Order tree to the Container (in Changed state)
+                          lContainer.Orders.Add(pOrder);
+
+                        //HERE
+                        //Console.WriteLine("Before place delivery for oredr in submit order ");
+
+
                         // ask the delivery service to organise delivery
                         PlaceDeliveryForOrder(pOrder);
 
                         // and save the order
-                        lContainer.SaveChanges();
-                        lScope.Complete();                    
+                     //   lContainer.SaveChanges();
+                     //   lScope.Complete();                    
                     }
                     catch (Exception lException)
                     {
@@ -83,7 +96,7 @@ namespace BookStore.Business.Components
                     }
                 }
             }
-            SendOrderPlacedConfirmation(pOrder);
+          //  SendOrderPlacedConfirmation(pOrder);
         }
 
         //private void MarkAppropriateUnchangedAssociations(Order pOrder)
@@ -128,17 +141,28 @@ namespace BookStore.Business.Components
 
         private void PlaceDeliveryForOrder(Order pOrder)
         {
+
+           // Console.WriteLine("Before place delivery for order methdod ");
+
             Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Book Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
-            Guid lDeliveryIdentifier = ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
-            { 
-                OrderNumber = lDelivery.Order.OrderNumber.ToString(),  
+
+            string queueName = ".\\private$\\DeliveryNotifyMessageQueue";
+            EnsureQueueExists(queueName);
+
+            ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
+            {
+                OrderNumber = lDelivery.Order.OrderNumber.ToString(),
                 SourceAddress = lDelivery.SourceAddress,
                 DestinationAddress = lDelivery.DestinationAddress,
-                DeliveryNotificationAddress = "net.tcp://localhost:9010/DeliveryNotificationService"
+                //DeliveryNotificationAddress = "net.tcp://localhost:9010/DeliveryNotificationService"
+               // DeliveryNotificationAddress = "net.msmq://localhost/private/DeliveryService"
+                DeliveryNotificationAddress = "net.msmq://localhost/private/DeliveryNotifyMessageQueue"
             });
 
-            lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
+            //Console.WriteLine("after Before place delivery for order methdod ");
+
+            // lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
             pOrder.Delivery = lDelivery;   
         }
 
@@ -148,17 +172,39 @@ namespace BookStore.Business.Components
             {
                 //   TransferServiceClient lClient = new TransferServiceClient();
                 //  String orderServiceAddress = "net.msmq://localhost/private/TransferNotificationQueueTransacted";
+               // Console.WriteLine("Inside transfer funds");
 
-
-               //string queueName = ".\\private$\\BankTransferTransacted";
-               string queueName = ".\\private$\\TransferNotifyMessageQueue";
+                //string queueName = ".\\private$\\BankTransferTransacted";
+                string queueName = ".\\private$\\TransferNotifyMessageQueue";
                string queueBank = ".\\private$\\BankTransferTransacted";
                string queueNotifyReference = "net.msmq://localhost/private/TransferNotifyMessageQueue";
                string queueReference = "net.msmq://localhost/private/BankTransferTransacted";
 
                 EnsureQueueExists(queueName);
 
-                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber(), queueNotifyReference, reference);
+              //  Console.WriteLine("Inside transfer funds after quque exists " + queueName);
+
+                // ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber(), queueNotifyReference, reference);
+
+               // ITransferService serviceA = ExternalServiceFactory.Instance.TransferService;
+
+
+
+              string pAddress = "net.msmq://localhost/private/BankTransferTransacted";
+                NetMsmqBinding msmqBinding = new NetMsmqBinding();
+                msmqBinding.Security.Mode = NetMsmqSecurityMode.None;
+                EndpointAddress address = new EndpointAddress(pAddress);
+                ITransferService aChannel = new ChannelFactory<ITransferService>(msmqBinding, pAddress).CreateChannel();
+               
+
+                //HERE
+               // Console.WriteLine("Inside transfer funds after externalservicefactory " + pAddress);
+
+
+                // serviceA.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber(), queueNotifyReference, reference);
+                aChannel.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber(), queueNotifyReference, reference);
+
+               // Console.WriteLine("AFter transfer");
 
             }
             catch
@@ -183,9 +229,10 @@ namespace BookStore.Business.Components
             if (!MessageQueue.Exists(queueName))
                 MessageQueue.Create(queueName, true);
 
-            OperationOutcome outcome = new OperationOutcome();
+           /* OperationOutcome outcome = new OperationOutcome();
             outcome.Outcome = OperationOutcome.OperationOutcomeResult.Successful;
-            outcome.Message = "HAD TO CREATE A NEW QUEUE called" + queueName ;
+            outcome.Message = "HAD TO CREATE A NEW QUEUE called" + queueName ; 
+            */
         }
 
 

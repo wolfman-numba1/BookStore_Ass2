@@ -8,7 +8,7 @@ namespace BookStore.Business.Components.Interfaces
 {
     public interface IDeliveryNotificationProvider
     {
-
+        void NotifyDeliverySubmitted(String orderNumber, Guid pDeliveryId, DeliveryStatus status, String errorMessage);
         void NotifyDeliveryCompletion(Guid pDeliveryId, DeliveryStatus status);
     }
 }

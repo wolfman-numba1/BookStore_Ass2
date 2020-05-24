@@ -103,7 +103,7 @@ namespace Bank.Process
 
         private static void EnsureQueueExists()
         {
-            Console.WriteLine("Bank queue " + sPublishQueuePath);
+            //Console.WriteLine("Bank queue " + sPublishQueuePath);
             // Create the transacted MSMQ queue if necessary.
             if (!MessageQueue.Exists(sPublishQueuePath))
                 MessageQueue.Create(sPublishQueuePath, true);

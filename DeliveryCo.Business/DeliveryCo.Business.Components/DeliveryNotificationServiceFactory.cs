@@ -11,7 +11,10 @@ namespace DeliveryCo.Business.Components
     {
         public static IDeliveryNotificationService GetDeliveryNotificationService(String pAddress)
         {
-            ChannelFactory<IDeliveryNotificationService> lChannelFactory = new ChannelFactory<IDeliveryNotificationService>(new NetTcpBinding(), new EndpointAddress(pAddress));
+            NetMsmqBinding msmqCallbackBinding = new NetMsmqBinding();
+            msmqCallbackBinding.Security.Mode = NetMsmqSecurityMode.None;
+
+            ChannelFactory<IDeliveryNotificationService> lChannelFactory = new ChannelFactory<IDeliveryNotificationService>(msmqCallbackBinding, new EndpointAddress(pAddress));
             return lChannelFactory.CreateChannel();
         }
     }

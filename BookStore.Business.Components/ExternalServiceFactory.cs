@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using BookStore.Business.Components;
 using System.Text;
 
 namespace BookStore.Business.Components
@@ -27,7 +28,9 @@ namespace BookStore.Business.Components
         {
             get
             {
-                return GetTcpService<IEmailService>("net.tcp://localhost:9040/EmailService");
+                //  get { return new EmailServiceClient(); }
+                return GetMsmqService<IEmailService>("net.msmq://localhost/private/EmailMessageQueue");
+                // return GetTcpService<IEmailService>("net.tcp://localhost:9040/EmailService");
             }
         }
 
@@ -35,8 +38,10 @@ namespace BookStore.Business.Components
         {
             get
             {
+               
                 return GetMsmqService<ITransferService>("net.msmq://localhost/private/BankTransferTransacted");
-               // return GetTcpService<ITransferService>("net.tcp://localhost:9020/TransferService");
+              
+                // return GetTcpService<ITransferService>("net.tcp://localhost:9020/TransferService");
             }
         }
 
@@ -44,7 +49,7 @@ namespace BookStore.Business.Components
         {
             get
             {
-                return GetTcpService<IDeliveryService>("net.tcp://localhost:9030/DeliveryService");
+                return GetMsmqService<IDeliveryService>("net.msmq://localhost/private/DeliveryService");
             }
         }
 

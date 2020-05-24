@@ -33,17 +33,20 @@ namespace Bank.Business.Components
                }
                */
 
-          //  try
-          //  {
+            //  try
+            //  { Console.WriteLine("Notification address " + pNotificationAddress);
 
-                // OperationOutcome outcome = new OperationOutcome();
-                using (TransactionScope lScope = new TransactionScope())
+
+          //  Console.WriteLine("Inside Transfer");
+            // OperationOutcome outcome = new OperationOutcome();
+            using (TransactionScope lScope = new TransactionScope())
                 using (BankEntityModelContainer lContainer = new BankEntityModelContainer())
                 {
 
                     try
                     {
-                        // find the two account entities and add them to the Container
+                      //  Console.WriteLine("Inside Transfer 2");
+                    // find the two account entities and add them to the Container
                         Account lFromAcct = lContainer.Accounts.Where(account => pFromAcctNumber == account.AccountNumber).First();
                         Account lToAcct = lContainer.Accounts.Where(account => pToAcctNumber == account.AccountNumber).First();
 
@@ -61,7 +64,7 @@ namespace Bank.Business.Components
 
                         //Console.WriteLine("Sucess! Transfer at  " + DateTime.Now + ": From account number "+ pFromAcctNumber + " to " + pToAcctNumber + " of " + pAmount + " was successful.");
 
-                        Console.WriteLine("Notification address " + pNotificationAddress);
+                       // Console.WriteLine("Notification address " + pNotificationAddress);
                        // TransferNotificationServiceFactory.GetTransferNotificationService(pNotificationAddress)
                        //      .NotifyTransferSuccess(pReference);
 

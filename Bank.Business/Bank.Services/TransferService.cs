@@ -17,7 +17,7 @@ namespace Bank.Services
         }
 
       //  [OperationBehavior(TransactionScopeRequired=true)]
-        [OperationBehavior(TransactionScopeRequired=true)]
+      //  [OperationBehavior(TransactionScopeRequired=true)]
         public void Transfer(double pAmount, int pFromAcctNumber, int pToAcctNumber, string pNotificationAddress, string pReference)
         {
             TransferProvider.Transfer(pAmount, pFromAcctNumber, pToAcctNumber, pNotificationAddress, pReference);

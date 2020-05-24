@@ -28,13 +28,16 @@ namespace BookStore.Process
         // private static readonly String bankTransferQueuePath = ".\\private$\\TransferNotificationQueueTransacted";
 
         private static readonly String transferNotifyPath = ".\\private$\\TransferNotifyMessageQueue";
-       // private static readonly String transferPath = ".\\private$\\BankTransferTransacted";
+        private static readonly String emailNotifyPath = ".\\private$\\EmailNotifyMessageQueue";
+        private static readonly String deliveryNotifyPath = ".\\private$\\DeliveryNotifyMessageQueue";
+        // private static readonly String transferPath = ".\\private$\\BankTransferTransacted";
 
         // bankTransferQueuePath =".\\private$\\BankTransferTransacted";
         static void Main(string[] args)
         {
             ResolveDependencies();
             EnsureQueueExists(transferNotifyPath);
+            EnsureQueueExists(deliveryNotifyPath);
             InsertDummyEntities();
             //EnsureQueueExists();
            // EnsureQueueExists(transferPath);
@@ -241,7 +244,7 @@ namespace BookStore.Process
 
         private static void EnsureQueueExists(string pathName)
         {
-            Console.WriteLine("Bookstore Queue to start " + pathName);
+            //Console.WriteLine("Bookstore Queue to start " + pathName);
             // Create the transacted MSMQ queue if necessary.
             if (!MessageQueue.Exists(pathName))
                 MessageQueue.Create(pathName, true);

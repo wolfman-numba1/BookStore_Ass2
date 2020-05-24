@@ -9,6 +9,7 @@ using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using System.Configuration;
+using System.Messaging;
 
 namespace DeliveryCo.Process
 {
@@ -17,6 +18,7 @@ namespace DeliveryCo.Process
         static void Main(string[] args)
         {
             ResolveDependencies();
+            EnsureQueueExists();
             using (ServiceHost lHost = new ServiceHost(typeof(DeliveryService)))
             {
                 lHost.Open();
@@ -36,5 +38,15 @@ namespace DeliveryCo.Process
             UnityServiceLocator locator = new UnityServiceLocator(lContainer);
             ServiceLocator.SetLocatorProvider(() => locator);
         }
+
+        private static void EnsureQueueExists()
+        {
+            string queueName = ".\\private$\\DeliveryService";
+              
+            if (!MessageQueue.Exists(queueName))
+                MessageQueue.Create(queueName, true);
+        }
     }
+
+
 }

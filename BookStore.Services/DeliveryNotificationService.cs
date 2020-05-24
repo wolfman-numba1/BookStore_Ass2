@@ -17,10 +17,17 @@ namespace BookStore.Services
             get { return ServiceLocator.Current.GetInstance<IDeliveryNotificationProvider>(); }
         }
 
+        public void NotifyDeliverySubmitted(string orderNumber, Guid pDeliveryId, DeliveryInfoStatus status, String errorMessage)
+        {
+            Provider.NotifyDeliverySubmitted(orderNumber, pDeliveryId, GetDeliveryStatusFromDeliveryInfoStatus(status), errorMessage);
+        }
+
         public void NotifyDeliveryCompletion(Guid pDeliveryId, DeliveryInfoStatus status)
         {
             Provider.NotifyDeliveryCompletion(pDeliveryId, GetDeliveryStatusFromDeliveryInfoStatus(status));
         }
+
+       
 
         private DeliveryStatus GetDeliveryStatusFromDeliveryInfoStatus(DeliveryInfoStatus status)
         {
@@ -42,5 +49,6 @@ namespace BookStore.Services
             }
         }
 
+        
     }
 }

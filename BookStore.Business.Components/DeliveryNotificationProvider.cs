@@ -61,6 +61,52 @@ namespace BookStore.Business.Components
                 return lDelivery.Order;
             }
         }
+        public void NotifyDeliverySubmitted(string orderNumber, Guid pDeliveryId, DeliveryStatus status, String errorMsg)
+        {
+            using (TransactionScope lScope = new TransactionScope())
+            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+            {
+                var orderNmbr = Guid.Parse(orderNumber);
+                Delivery lDelivery = lContainer.Deliveries.Include("Order.Customer").Where((pDel) => pDel.Order.OrderNumber == orderNmbr).FirstOrDefault();
+                if (lDelivery != null)
+                {
+                    lDelivery.DeliveryStatus = status;
+
+                    if (status == DeliveryStatus.Submitted)
+                    {
+                        lDelivery.ExternalDeliveryIdentifier = pDeliveryId;
+
+                        SendOrderPlacedConfirmation(lDelivery.Order);
+                    }
+                    else if (status == DeliveryStatus.Failed)
+                    {
+                        SendOrderErrorMessage(lDelivery.Order, errorMsg);
+                    }
+
+                    lContainer.SaveChanges();
+
+                }
+                lScope.Complete();
+            }
+        }
+
+        private void SendOrderErrorMessage(Order pOrder, String errorMsg)
+        {
+            EmailProvider.SendMessage(new EmailMessage()
+            {
+                ToAddress = pOrder.Customer.Email,
+                Message = "There was an error in processsing your order " + pOrder.OrderNumber + ": " + errorMsg + ". Please contact Video Store"
+            });
+        }
+
+        private void SendOrderPlacedConfirmation(Order pOrder)
+        {
+            EmailProvider.SendMessage(new EmailMessage()
+            {
+                ToAddress = pOrder.Customer.Email,
+                Message = "Your order " + pOrder.OrderNumber + " has been placed"
+            });
+        }
     }
 
 
