@@ -15,7 +15,7 @@ namespace BookStore.Services.Interfaces
         Order ConfirmOrder(Order pOrder);
 
         [OperationContract]
-        void CancelOrder(Order UserOrder);
+        void CancelOrder(int UserOrder);
 
         [OperationContract]
         [FaultContract(typeof(InsufficientStockFault))]

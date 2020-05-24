@@ -50,7 +50,7 @@ namespace BookStore.WebClient.Controllers
         }
 
         //new method to help a user cancel their order
-        public ActionResult CancelOrder(Order UserOrder, Cart pCart, UserCache pUser)
+        public ActionResult CancelOrder(int UserOrder, Cart pCart, UserCache pUser)
         {
             try
             {

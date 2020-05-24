@@ -40,13 +40,11 @@ namespace BookStore.Services
             }
         }
 
-        public void CancelOrder(Order UserOrder)
+        public void CancelOrder(int userOrder)
         {
             try
             {
-                OrderProvider.CancelOrder(
-                    MessageTypeConverter.Instance.Convert<BookStore.Services.MessageTypes.Order,
-                    BookStore.Business.Entities.Order>(UserOrder));
+                OrderProvider.CancelOrder(userOrder);
             }
             //fix this later
             catch (BookStore.Business.Entities.InsufficientStockException ise)

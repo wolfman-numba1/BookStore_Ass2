@@ -51,7 +51,7 @@ namespace BookStore.WebClient.ClientModels
             return UserOrder;
         }
 
-        public void CancelOrder(Order UserOrder, UserCache pUserCache)
+        public void CancelOrder(int UserOrder, UserCache pUserCache)
         {
             ServiceFactory.Instance.OrderService.CancelOrder(UserOrder);
         }
