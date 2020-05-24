@@ -64,6 +64,7 @@ namespace DeliveryCo.Business.Components
                 Console.WriteLine(confirmedOrders[i][2] + " Book(s) with ID " + confirmedOrders[i][0] + " have been delivered");
                 Thread.Sleep(1000);
             }
+            Console.WriteLine("Order is completed. Thank you for shopping with the book store.");
         }
     }
 }
