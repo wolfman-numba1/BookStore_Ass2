@@ -47,6 +47,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
@@ -70,6 +71,22 @@
     <Compile Include="WarehouseProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bank.Application\Bank.Process\Bank.Process.csproj">
+      <Project>{c235577f-c81b-4576-88c0-1541c036e162}</Project>
+      <Name>Bank.Process</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bank.Business\Bank.Business.Components.Interfaces\Bank.Business.Components.Interfaces.csproj">
+      <Project>{1908d09f-da6f-4e6c-8aa7-963816bb05b1}</Project>
+      <Name>Bank.Business.Components.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bank.Business\Bank.Business.Components\Bank.Business.Components.csproj">
+      <Project>{9dc3d9e0-63fd-4901-8203-0739f35e74ba}</Project>
+      <Name>Bank.Business.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bank.Business\Bank.Business.Entities\Bank.Business.Entities.csproj">
+      <Project>{4bb64dae-6f81-4e3d-a2bd-41075f28f15f}</Project>
+      <Name>Bank.Business.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bank.Services\Bank.Services.Interfaces\Bank.Services.Interfaces.csproj">
       <Project>{3317f30a-a62c-474d-8d2b-b91605ecf202}</Project>
       <Name>Bank.Services.Interfaces</Name>
