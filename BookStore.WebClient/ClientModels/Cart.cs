@@ -58,7 +58,7 @@ namespace BookStore.WebClient.ClientModels
         }
 
         //submit delivery and clear cart 
-        public void SubmitOrderAndClearCart(Order UserOrder, UserCache pUserCache)
+        public void SubmitOrderAndClearCart(int UserOrder, UserCache pUserCache)
         {
             ServiceFactory.Instance.OrderService.SubmitOrder(UserOrder);
             pUserCache.UpdateUserCache();

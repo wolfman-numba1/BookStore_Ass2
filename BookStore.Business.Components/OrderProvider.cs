@@ -109,15 +109,20 @@ namespace BookStore.Business.Components
                 }
             }
         }
-        public void SubmitOrder(Entities.Order pOrder)
-        {      
-            using (TransactionScope lScope = new TransactionScope())
+        public void SubmitOrder(int UserOrderID)
+        {
+            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+            {
+                Order pOrder = lContainer.Orders.Find(UserOrderID);
+                using (TransactionScope lScope = new TransactionScope())
             {
                 //LoadBookStocks(pOrder);
                 //MarkAppropriateUnchangedAssociations(pOrder);
 
-                using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
-                {
+                
+                
+                    
+
                     try
                     {
                         //get the warehouses again for logging when doing the delivery 
@@ -129,6 +134,7 @@ namespace BookStore.Business.Components
                         // and save the order
                         lContainer.SaveChanges();
                         lScope.Complete();
+
                     }
                     catch (Exception lException)
                     {
@@ -137,8 +143,8 @@ namespace BookStore.Business.Components
                         throw;
                     }
                 }
+                SendOrderPlacedConfirmation(pOrder);
             }
-            SendOrderPlacedConfirmation(pOrder);
         }
 
         //private void MarkAppropriateUnchangedAssociations(Order pOrder)

@@ -66,7 +66,7 @@ namespace BookStore.WebClient.Controllers
         }
 
         //fix this submitOrder method below
-        public ActionResult SubmitOrder(Order UserOrder, Cart pCart, UserCache pUser)
+        public ActionResult SubmitOrder(int UserOrder, Cart pCart, UserCache pUser)
         {
             try
             {
@@ -78,12 +78,12 @@ namespace BookStore.WebClient.Controllers
                 pUser.UpdateUserCache();
                 return RedirectToAction("ErrorPage");
             }
-            return View(new CheckOutViewModel(pUser.Model));
+            return RedirectToAction("CheckOut", "Cart");
         }
 
         public ActionResult ContinueShopping()
         {
-            return RedirectToAction("ListBooks", "Store"); ;
+            return RedirectToAction("ListBooks", "Store");
         }
 
         public ActionResult ErrorPage()

@@ -10,6 +10,6 @@ namespace BookStore.Business.Components.Interfaces
     {
         Order ConfirmOrder(Order pOrder);
         void CancelOrder(int UserOrder);
-        void SubmitOrder(Order pOrder);
+        void SubmitOrder(int UserOrder);
     }
 }
