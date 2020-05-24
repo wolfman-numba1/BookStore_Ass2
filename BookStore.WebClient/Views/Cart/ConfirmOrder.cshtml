@@ -3,8 +3,14 @@
     ViewBag.Title = "ConfirmOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+       setTimeout((function(){
+           $.post("@Url.Action("SubmitOrder","Cart")?" + $.param({UserOrder : @Model.CurrentOrder.Id}), function(data){
+            alert(data);
+         });
+       }), 5000);
+    </script>
 
 <h2>Thank you for shopping with us!</h2>
 <p>Your delivery should be confirmed in 5 seconds</p>
