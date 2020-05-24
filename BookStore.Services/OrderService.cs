@@ -40,13 +40,11 @@ namespace BookStore.Services
             }
         }
 
-        public void CancelOrder(Order UserOrder)
+        public void CancelOrder(int userOrder)
         {
             try
             {
-                OrderProvider.CancelOrder(
-                    MessageTypeConverter.Instance.Convert<BookStore.Services.MessageTypes.Order,
-                    BookStore.Business.Entities.Order>(UserOrder));
+                OrderProvider.CancelOrder(userOrder);
             }
             //fix this later
             catch (BookStore.Business.Entities.InsufficientStockException ise)
@@ -55,15 +53,11 @@ namespace BookStore.Services
                     new InsufficientStockFault() { ItemName = ise.ItemName });
             }
         }
-        public void SubmitOrder(Order pOrder)
+        public void SubmitOrder(int UserOrder)
         {
             try
             {
-                OrderProvider.SubmitOrder(
-                    MessageTypeConverter.Instance.Convert<
-                    BookStore.Services.MessageTypes.Order,
-                    BookStore.Business.Entities.Order>(pOrder)
-                );
+                OrderProvider.SubmitOrder(UserOrder);
             }
             catch(BookStore.Business.Entities.InsufficientStockException ise)
             {

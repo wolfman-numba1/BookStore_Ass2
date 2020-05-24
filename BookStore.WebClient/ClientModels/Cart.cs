@@ -51,16 +51,16 @@ namespace BookStore.WebClient.ClientModels
             return UserOrder;
         }
 
-        public void CancelOrder(Order UserOrder, UserCache pUserCache)
+        public void CancelOrder(int UserOrder, UserCache pUserCache)
         {
             ServiceFactory.Instance.OrderService.CancelOrder(UserOrder);
+            Clear();
         }
 
         //submit delivery and clear cart 
-        public void SubmitOrderAndClearCart(UserCache pUserCache)
+        public void SubmitOrderAndClearCart(int UserOrder, UserCache pUserCache)
         {
-            //need to pass the user's order here as well
-            ServiceFactory.Instance.OrderService.SubmitOrder(lOrder);
+            ServiceFactory.Instance.OrderService.SubmitOrder(UserOrder);
             pUserCache.UpdateUserCache();
             Clear();
         }

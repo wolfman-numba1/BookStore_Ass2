@@ -13,7 +13,7 @@ namespace BookStore.Business.Components
 {
     public class WarehouseProvider : IWarehouseProvider
     {
-        public int[][] ProcessOrder(Order pOrder)
+        public int[][] ProcessOrder(Order pOrder, int save)
         {
             using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
             {
@@ -86,30 +86,15 @@ namespace BookStore.Business.Components
                     }
                 }
 
-                // save changes to the database
-                lContainer.SaveChanges();
+                // if the order has been confirmed by the user
+                if (save == 1)
+                {
+                    // save changes to the database
+                    lContainer.SaveChanges();
+                }
 
                 // return the processed orders
                 return result;
-            }
-        }
-
-        public void resetStockLevels(int[][] confirmedOrders)
-        {
-            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
-            {
-                // for each warehouse involved in the confirmed orders
-                for (int i = 0; i < confirmedOrders.GetLength(0); i++)
-                {
-                    // get the warehouse
-                    Warehouse wh = lContainer.Warehouses.Find(confirmedOrders[i][1]);
-
-                    // reset the quantity for the warehouse 
-                    wh.Quantity += confirmedOrders[i][2];
-                }
-
-                // save changes to the database
-                lContainer.SaveChanges();
             }
         }
     }

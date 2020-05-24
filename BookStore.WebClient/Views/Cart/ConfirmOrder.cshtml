@@ -3,9 +3,19 @@
     ViewBag.Title = "ConfirmOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+       setTimeout((function(){
+           $.post("@Url.Action("SubmitOrder","Cart")?" + $.param({ UserOrder: @Model.CurrentOrder.Id}), function () { });
+           $("#inner").html('<p>Order Submitted, check your email for further information<p>');
+       }), 5000);
+    </script>
 
-<h2>Thank you for shopping with us!</h2>
-<p>Your delivery should be confirmed in 5 seconds</p>
-<p>Please click the following link if you would like to cancel your order. </p>
-<p>@Html.ActionLink("Cancel order", "CancelOrder", new { UserOrder = Model.CurrentOrder})</p>
-
+    <div id="container" style="{height: 500px}">
+        <h2>Thank you for shopping with us!</h2>
+        <div id="inner">
+            <p>Your delivery should be confirmed in 5 seconds...</p>
+            <p>Please click the following link if you would like to cancel your order. </p>
+            <p>@Html.ActionLink("Cancel order", "CancelOrder", new { UserOrder = Model.CurrentOrder.Id })</p>
+        </div>
+    </div>

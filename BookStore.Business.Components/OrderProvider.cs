@@ -27,6 +27,8 @@ namespace BookStore.Business.Components
             get { return ServiceLocator.Current.GetInstance<IWarehouseProvider>(); }
         }
 
+        public int[][] WarehouseMatrix;
+
         public Order ConfirmOrder(Entities.Order pOrder)
         {
             using (TransactionScope lScope = new TransactionScope())
@@ -84,44 +86,47 @@ namespace BookStore.Business.Components
             }
             return pOrder;
         }
-        public void CancelOrder(Entities.Order UserOrder)
+        public void CancelOrder(int UserOrderID)
         {
             using (TransactionScope lScope = new TransactionScope())
             {
                 using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
                 {
+                    Order UserOrder = lContainer.Orders.Find(UserOrderID); 
 
                     //re-add the stock quantities from the order back to the stock 
                     UserOrder.ResetStockLevels();
 
-                    //need a method for re-adding stock to warehouses as well
-                    //UpdateWarehouseStock(UserOrder);
-
                     //give the customer their money back
                     TransferFundsToCustomer(UserProvider.ReadUserById(UserOrder.Customer.Id).BankAccountNumber, UserOrder.Total ?? 0.0);
 
-                    //delete order from order table
-                    string SQL = "DELETE FROM [dbo].Orders WHERE OrderNumber = {0}";
-                    lContainer.Database.ExecuteSqlCommand(SQL, UserOrder.OrderNumber);
+                    //soft delete order from order table
+                    UserOrder.Deleted = true;
 
+                    //save changes
                     lContainer.SaveChanges();
                     lScope.Complete();
                 }
             }
         }
-        public void SubmitOrder(Entities.Order pOrder)
-        {      
-            using (TransactionScope lScope = new TransactionScope())
+        public void SubmitOrder(int UserOrderID)
+        {
+            using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
+            {
+                Order pOrder = lContainer.Orders.Find(UserOrderID);
+                using (TransactionScope lScope = new TransactionScope())
             {
                 //LoadBookStocks(pOrder);
                 //MarkAppropriateUnchangedAssociations(pOrder);
 
-                using (BookStoreEntityModelContainer lContainer = new BookStoreEntityModelContainer())
-                {
+                
+                
+                    
+
                     try
                     {
                         //get the warehouses again for logging when doing the delivery 
-                        int[][] confirmedOrders = ConfirmOrderWarehouseLogic(pOrder);
+                        int[][] confirmedOrders = ConfirmOrderWarehouseLogicSave(pOrder);
 
                         // ask the delivery service to organise delivery
                         PlaceDeliveryForOrder(pOrder, confirmedOrders);
@@ -129,6 +134,7 @@ namespace BookStore.Business.Components
                         // and save the order
                         lContainer.SaveChanges();
                         lScope.Complete();
+
                     }
                     catch (Exception lException)
                     {
@@ -137,8 +143,8 @@ namespace BookStore.Business.Components
                         throw;
                     }
                 }
+                SendOrderPlacedConfirmation(pOrder);
             }
-            SendOrderPlacedConfirmation(pOrder);
         }
 
         //private void MarkAppropriateUnchangedAssociations(Order pOrder)
@@ -233,7 +239,12 @@ namespace BookStore.Business.Components
 
         private int[][] ConfirmOrderWarehouseLogic(Order pOrder)
         {
-            return WarehouseProvider.ProcessOrder(pOrder);
+            return WarehouseProvider.ProcessOrder(pOrder, 0);
+        }
+
+        private int[][] ConfirmOrderWarehouseLogicSave(Order pOrder)
+        {
+            return WarehouseProvider.ProcessOrder(pOrder, 1);
         }
 
         private int RetrieveBookStoreAccountNumber()
