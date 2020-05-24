@@ -28,6 +28,7 @@ namespace BookStore.Business.Entities
         public string Store { get; set; }
         public System.Guid OrderNumber { get; set; }
         public bool Deleted { get; set; }
+        public int ProcessStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }

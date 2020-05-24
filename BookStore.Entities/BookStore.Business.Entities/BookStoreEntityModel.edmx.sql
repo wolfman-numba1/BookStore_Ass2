@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/24/2020 12:46:48
--- Generated from EDMX file: C:\Users\blaze\source\repos\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\BookStoreEntityModel.edmx
+-- Date Created: 05/24/2020 19:37:53
+-- Generated from EDMX file: C:\Users\Petar\Documents\BookStore_Ass2\BookStore_Ass2\BookStore.Entities\BookStore.Business.Entities\BookStoreEntityModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -122,6 +122,7 @@ CREATE TABLE [dbo].[Orders] (
     [Store] nvarchar(max)  NULL,
     [OrderNumber] uniqueidentifier  NOT NULL,
     [Deleted] bit  NOT NULL,
+    [ProcessStatus] int  NOT NULL,
     [Customer_Id] int  NOT NULL
 );
 GO

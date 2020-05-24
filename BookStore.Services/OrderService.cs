@@ -24,46 +24,21 @@ namespace BookStore.Services
 
         public Order ConfirmOrder(Order pOrder)
         {
-            try
-            { 
-                var internalResult = OrderProvider.ConfirmOrder(
+            var internalResult = OrderProvider.ConfirmOrder(
                     MessageTypeConverter.Instance.Convert<BookStore.Services.MessageTypes.Order,BookStore.Business.Entities.Order>
                     (pOrder));
-                var externalResult = MessageTypeConverter.Instance.Convert<BookStore.Business.Entities.Order, BookStore.Services.MessageTypes.Order>
+            var externalResult = MessageTypeConverter.Instance.Convert<BookStore.Business.Entities.Order, BookStore.Services.MessageTypes.Order>
                     (internalResult);
-                return externalResult;
-            }
-            catch(BookStore.Business.Entities.InsufficientStockException ise)
-            {
-                throw new FaultException<InsufficientStockFault>(
-                    new InsufficientStockFault() { ItemName = ise.ItemName });
-            }
+            return externalResult;
         }
 
         public void CancelOrder(int userOrder)
         {
-            try
-            {
-                OrderProvider.CancelOrder(userOrder);
-            }
-            //fix this later
-            catch (BookStore.Business.Entities.InsufficientStockException ise)
-            {
-                throw new FaultException<InsufficientStockFault>(
-                    new InsufficientStockFault() { ItemName = ise.ItemName });
-            }
+            OrderProvider.CancelOrder(userOrder);
         }
         public void SubmitOrder(int UserOrder)
         {
-            try
-            {
-                OrderProvider.SubmitOrder(UserOrder);
-            }
-            catch(BookStore.Business.Entities.InsufficientStockException ise)
-            {
-                throw new FaultException<InsufficientStockFault>(
-                    new InsufficientStockFault() { ItemName = ise.ItemName });
-            }
+            OrderProvider.SubmitOrder(UserOrder);
         }
     }
 }

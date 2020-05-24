@@ -7,6 +7,8 @@ using BookStore.Business.Entities;
 using System.Transactions;
 using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
+using System.ServiceModel;
+using System.Diagnostics;
 
 namespace BookStore.Business.Components
 {
@@ -42,6 +44,7 @@ namespace BookStore.Business.Components
                     {
                         pOrder.OrderNumber = Guid.NewGuid();
                         pOrder.Store = "OnLine";
+                        pOrder.ProcessStatus = 0;
 
                         // Book objects in pOrder are missing the link to their Stock tuple (and the Stock GUID field)
                         // so fix up the 'books' in the order with well-formed 'books' with 1:1 links to Stock tuples
@@ -55,22 +58,43 @@ namespace BookStore.Business.Components
 
                         // confirm the order can be completed and from which warehouses 
                         int[][] confirmedOrders = ConfirmOrderWarehouseLogic(pOrder);
-
+                        Debug.WriteLine(pOrder.ProcessStatus);
                         // an error has occured when confirming the order
                         if (confirmedOrders[0][0] == -1)
                         {
                             SendOrderFailedConfirmation(pOrder);
-                            throw new Exception("There is not enough stock in the warehouses to complete the order.");
+                            pOrder.ProcessStatus = 1;
+                            Debug.WriteLine(pOrder.ProcessStatus);
+                            return pOrder;
                         }
-
+                        Debug.WriteLine(pOrder.ProcessStatus);
                         // and update the stock levels
-                        pOrder.UpdateStockLevels();
-
-                        // add the modified Order tree to the Container (in Changed state)
-                        lContainer.Orders.Add(pOrder);
+                        try
+                        {
+                            pOrder.UpdateStockLevels();
+                        }
+                        catch (Exception)
+                        {
+                            pOrder.ProcessStatus = 1;
+                            return pOrder;
+                        }
+                        Debug.WriteLine(pOrder.ProcessStatus);
 
                         // ask the Bank service to transfer fundss
-                        TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
+                        try
+                        {
+                            TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0);
+                        }
+                        //catch if the bank process is offline
+                        //change process status to 2
+                        catch(EndpointNotFoundException)
+                        {
+                            pOrder.ProcessStatus = 2;
+                            return pOrder;
+                        }
+                        Debug.WriteLine(pOrder.ProcessStatus);
+                        // add the modified Order tree to the Container (in Changed state)
+                        lContainer.Orders.Add(pOrder);
 
                         // and save the order
                         lContainer.SaveChanges();
@@ -78,9 +102,14 @@ namespace BookStore.Business.Components
                     }
                     catch (Exception lException)
                     {
-                        SendOrderErrorMessage(pOrder, lException);
-                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries = lContainer.ChangeTracker.Entries();
-                        throw;
+                        try
+                        {
+                            SendOrderErrorMessage(pOrder, lException);
+                        }
+                        catch
+                        {
+                            Debug.WriteLine("Email process is off. Switch on please in order to maintain communication with BookStore");
+                        }
                     }
                 }
             }
@@ -97,8 +126,16 @@ namespace BookStore.Business.Components
                     //re-add the stock quantities from the order back to the stock 
                     UserOrder.ResetStockLevels();
 
-                    //give the customer their money back
-                    TransferFundsToCustomer(UserProvider.ReadUserById(UserOrder.Customer.Id).BankAccountNumber, UserOrder.Total ?? 0.0);
+                    //make use of the message queues here
+                    try
+                    {
+                        //give the customer their money back
+                        TransferFundsToCustomer(UserProvider.ReadUserById(UserOrder.Customer.Id).BankAccountNumber, UserOrder.Total ?? 0.0);
+                    }
+                    catch (EndpointNotFoundException)
+                    {
+                        Debug.WriteLine("Bank process not found please switch on for a full refund.");
+                    }
 
                     //soft delete order from order table
                     UserOrder.Deleted = true;
@@ -118,18 +155,21 @@ namespace BookStore.Business.Components
             {
                 //LoadBookStocks(pOrder);
                 //MarkAppropriateUnchangedAssociations(pOrder);
-
-                
-                
-                    
-
                     try
                     {
                         //get the warehouses again for logging when doing the delivery 
                         int[][] confirmedOrders = ConfirmOrderWarehouseLogicSave(pOrder);
 
                         // ask the delivery service to organise delivery
-                        PlaceDeliveryForOrder(pOrder, confirmedOrders);
+                        try
+                        {
+                            PlaceDeliveryForOrder(pOrder, confirmedOrders);
+                        }
+                        catch(EndpointNotFoundException)
+                        {
+                            Debug.WriteLine("DeliveryCo process is offline. Please switch back on for your delivery to be submitted.");
+                            return;
+                        }
 
                         // and save the order
                         lContainer.SaveChanges();
@@ -138,12 +178,24 @@ namespace BookStore.Business.Components
                     }
                     catch (Exception lException)
                     {
-                        SendOrderErrorMessage(pOrder, lException);
-                        IEnumerable<System.Data.Entity.Infrastructure.DbEntityEntry> entries = lContainer.ChangeTracker.Entries();
-                        throw;
+                        try
+                        {
+                            SendOrderErrorMessage(pOrder, lException);
+                        }
+                        catch
+                        {
+                            Debug.WriteLine("An error has occurred but your email process is switched off. Please switch back on the email process to find out more.");
+                        }
                     }
                 }
-                SendOrderPlacedConfirmation(pOrder);
+                try
+                {
+                    SendOrderPlacedConfirmation(pOrder);
+                }
+                catch
+                {
+                    Debug.WriteLine("Email process is off. Switch on please in order to maintain communication with BookStore");
+                }
             }
         }
 
@@ -220,6 +272,10 @@ namespace BookStore.Business.Components
             {
                 ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveBookStoreAccountNumber());
             }
+            catch (EndpointNotFoundException)
+            {
+                throw new EndpointNotFoundException("Bank process does not seem to be running. Please turn on and try again.");
+            }
             catch
             {
                 throw new Exception("Error when transferring funds for order.");
@@ -230,6 +286,10 @@ namespace BookStore.Business.Components
             try
             {
                 ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, RetrieveBookStoreAccountNumber(), pCustomerAccountNumber);
+            }
+            catch (EndpointNotFoundException)
+            {
+                throw new EndpointNotFoundException("Bank process does not seem to be running. Please turn on and try again.");
             }
             catch
             {

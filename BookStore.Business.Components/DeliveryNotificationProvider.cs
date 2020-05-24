@@ -6,6 +6,8 @@ using BookStore.Business.Components.Interfaces;
 using BookStore.Business.Entities;
 using Microsoft.Practices.ServiceLocation;
 using System.Transactions;
+using System.ServiceModel;
+using System.Diagnostics;
 
 namespace BookStore.Business.Components
 {
@@ -22,19 +24,34 @@ namespace BookStore.Business.Components
             UpdateDeliveryStatus(pDeliveryId, status);
             if (status == Entities.DeliveryStatus.Delivered)
             {
-                EmailProvider.SendMessage(new EmailMessage()
+                try
                 {
-                    ToAddress = lAffectedOrder.Customer.Email,
-                    Message = "Our records show that your order" +lAffectedOrder.OrderNumber + " has been delivered. Thank you for shopping at video store"
-                });
+                    EmailProvider.SendMessage(new EmailMessage()
+                    {
+                        ToAddress = lAffectedOrder.Customer.Email,
+                        Message = "Our records show that your order" + lAffectedOrder.OrderNumber + " has been delivered. Thank you for shopping at video store"
+                    });
+                }
+                catch(EndpointNotFoundException)
+                {
+                    Debug.WriteLine("There seems to be a problem with your email process. try turning it on to get the full email message.");
+                }
+
             }
             if (status == Entities.DeliveryStatus.Failed)
             {
-                EmailProvider.SendMessage(new EmailMessage()
+                try
                 {
-                    ToAddress = lAffectedOrder.Customer.Email,
-                    Message = "Our records show that there was a problem" + lAffectedOrder.OrderNumber + " delivering your order. Please contact Book Store"
-                });
+                    EmailProvider.SendMessage(new EmailMessage()
+                    {
+                        ToAddress = lAffectedOrder.Customer.Email,
+                        Message = "Our records show that there was a problem" + lAffectedOrder.OrderNumber + " delivering your order. Please contact Book Store"
+                    });
+                }
+                catch (EndpointNotFoundException)
+                {
+                    Debug.WriteLine("There seems to be a problem with your email process. try turning it on to get the full email message.");
+                }
             }
         }
 
