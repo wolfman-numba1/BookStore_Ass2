@@ -20,6 +20,8 @@ namespace BookStore.Services.MessageTypes
 
         public bool Deleted {get; set; }
 
+        public int ProcessStatus { get; set; }
+
         public User Customer {get;set;}
     }
 }

@@ -19,15 +19,27 @@ using BookStore.Business.Components.Interfaces;
 using BookStore.WebClient.CustomAuth;
 using System.Collections;
 using System.Media;
+using System.Messaging;
+
 
 namespace BookStore.Process
 {
     public class Program
     {
+        // private static readonly String bankTransferQueuePath = ".\\private$\\TransferNotificationQueueTransacted";
+
+        private static readonly String transferNotifyPath = ".\\private$\\TransferNotifyMessageQueue";
+       // private static readonly String transferPath = ".\\private$\\BankTransferTransacted";
+
+        // bankTransferQueuePath =".\\private$\\BankTransferTransacted";
         static void Main(string[] args)
         {
             ResolveDependencies();
+            EnsureQueueExists(transferNotifyPath);
             InsertDummyEntities();
+            //EnsureQueueExists();
+           // EnsureQueueExists(transferPath);
+         
             HostServices();
         }
 
@@ -190,6 +202,13 @@ namespace BookStore.Process
 
         private static void HostServices()
         {
+
+            //EnsureQueueExists(transferNotifyPath);
+            //EnsureQueueExists(transferPath);
+            //EnsureQueueExists(transferNotifyPath);
+
+          
+
             List<ServiceHost> lHosts = new List<ServiceHost>();
             try
             {
@@ -225,6 +244,14 @@ namespace BookStore.Process
         private static String GetAssemblyQualifiedServiceName(String pServiceName)
         {
             return String.Format("{0}, {1}", pServiceName, System.Configuration.ConfigurationManager.AppSettings["ServiceAssemblyName"].ToString());
+        }
+
+        private static void EnsureQueueExists(string pathName)
+        {
+           // Console.WriteLine("Bookstore Queue to start " + pathName);
+            // Create the transacted MSMQ queue if necessary.
+            if (!MessageQueue.Exists(pathName))
+                MessageQueue.Create(pathName, true);
         }
     }
 }

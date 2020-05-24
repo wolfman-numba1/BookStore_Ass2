@@ -11,16 +11,20 @@ using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using System.Configuration;
+using System.Messaging;
 
 namespace Bank.Process
 {
     class Program
     {
+        private static readonly String sPublishQueuePath = ".\\private$\\BankTransferTransacted";
         static void Main(string[] args)
         {
             ResolveDependencies();
+            EnsureQueueExists();
             CreateDummyEntities();
             HostServices();
+        
 
         }
 
@@ -95,6 +99,14 @@ namespace Bank.Process
             lSection.Containers["containerOne"].Configure(lContainer);
             UnityServiceLocator locator = new UnityServiceLocator(lContainer);
             ServiceLocator.SetLocatorProvider(() => locator);
+        }
+
+        private static void EnsureQueueExists()
+        {
+           // Console.WriteLine("Bank queue " + sPublishQueuePath);
+            // Create the transacted MSMQ queue if necessary.
+            if (!MessageQueue.Exists(sPublishQueuePath))
+                MessageQueue.Create(sPublishQueuePath, true);
         }
     }
 }

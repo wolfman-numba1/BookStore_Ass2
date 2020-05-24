@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOutcomeNotificationService.cs" />
+    <Compile Include="ITransferNotificationService.cs" />
     <Compile Include="ITransferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,6 +53,10 @@
     <ProjectReference Include="..\..\Bank.Business\Bank.Business.Entities\Bank.Business.Entities.csproj">
       <Project>{4BB64DAE-6F81-4E3D-A2BD-41075F28F15F}</Project>
       <Name>Bank.Business.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BookStore.Entities\BookStore.Business.Entities\BookStore.Business.Entities.csproj">
+      <Project>{35992ec3-2c32-46af-aee4-491c54f681a5}</Project>
+      <Name>BookStore.Business.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

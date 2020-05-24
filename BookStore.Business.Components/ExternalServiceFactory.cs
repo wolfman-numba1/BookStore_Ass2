@@ -35,7 +35,8 @@ namespace BookStore.Business.Components
         {
             get
             {
-                return GetTcpService<ITransferService>("net.tcp://localhost:9020/TransferService");
+                return GetMsmqService<ITransferService>("net.msmq://localhost/private/BankTransferTransacted");
+               // return GetTcpService<ITransferService>("net.tcp://localhost:9020/TransferService");
             }
         }
 
@@ -54,6 +55,14 @@ namespace BookStore.Business.Components
             NetTcpBinding tcpBinding = new NetTcpBinding() { TransactionFlow = true };
             EndpointAddress address = new EndpointAddress(pAddress);
             return new ChannelFactory<T>(tcpBinding, pAddress).CreateChannel();
+        }
+
+        private T GetMsmqService<T>(String pAddress)
+        {
+            NetMsmqBinding msmqBinding = new NetMsmqBinding();
+            msmqBinding.Security.Mode = NetMsmqSecurityMode.None;
+            EndpointAddress address = new EndpointAddress(pAddress);
+            return new ChannelFactory<T>(msmqBinding, pAddress).CreateChannel();
         }
     }
 }
