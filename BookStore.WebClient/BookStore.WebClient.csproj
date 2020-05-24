@@ -240,6 +240,10 @@
     <Content Include="Views\Cart\ErrorPage.cshtml" />
     <Content Include="Views\Cart\ConfirmOrder.cshtml" />
     <Content Include="Views\Cart\CancelOrder.cshtml" />
+    <Content Include="Views\Cart\ErrorBank.cshtml" />
+    <Content Include="Views\Cart\ErrorDelivery.cshtml" />
+    <Content Include="Views\Cart\ErrorEmail.cshtml" />
+    <Content Include="Views\Cart\ErrorStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

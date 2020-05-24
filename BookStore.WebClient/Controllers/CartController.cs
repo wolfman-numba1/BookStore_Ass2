@@ -39,7 +39,20 @@ namespace BookStore.WebClient.Controllers
             try
             {
                 Order UserOrder = pCart.ConfirmOrder(pUser);
-                return View(new ConfirmOrderViewModel(UserOrder));
+
+                //System.Diagnostics.Debug.WriteLine(UserOrder.ProcessStatus);
+                if(UserOrder.ProcessStatus == 1)
+                {
+                    return RedirectToAction("ErrorStock");
+                }
+                else if(UserOrder.ProcessStatus == 2)
+                {
+                    return RedirectToAction("ErrorBank");
+                }
+                else
+                {
+                    return View(new ConfirmOrderViewModel(UserOrder));
+                }
             }
             catch
             {
@@ -87,6 +100,14 @@ namespace BookStore.WebClient.Controllers
         }
 
         public ActionResult ErrorPage()
+        {
+            return View();
+        }
+        public ActionResult ErrorBank()
+        {
+            return View();
+        }
+        public ActionResult ErrorStock()
         {
             return View();
         }

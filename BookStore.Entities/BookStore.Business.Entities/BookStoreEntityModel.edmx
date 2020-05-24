@@ -92,6 +92,7 @@
     <Property Name="Store" Type="nvarchar(max)" Nullable="true" />
     <Property Name="OrderNumber" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Deleted" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="ProcessStatus" Type="int" Nullable="false" />
     <Property Name="Customer_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderItems">
@@ -365,6 +366,7 @@
           <Property Type="Guid" Name="OrderNumber" Nullable="false" />
           <NavigationProperty Name="Delivery" Relationship="BookStoreEntityModel.DeliveryOrder" FromRole="Order" ToRole="Delivery" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="ProcessStatus" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -489,6 +491,7 @@
           <ScalarProperty Name="Store" ColumnName="Store" />
           <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="ProcessStatus" ColumnName="ProcessStatus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
