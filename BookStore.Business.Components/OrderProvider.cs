@@ -239,12 +239,12 @@ namespace BookStore.Business.Components
 
         private int[][] ConfirmOrderWarehouseLogic(Order pOrder)
         {
-            return WarehouseProvider.ProcessOrder(pOrder, 0);
+            return WarehouseProvider.ProcessOrder(pOrder);
         }
 
         private int[][] ConfirmOrderWarehouseLogicSave(Order pOrder)
         {
-            return WarehouseProvider.ProcessOrder(pOrder, 1);
+            return WarehouseProvider.ProcessOrderSave(pOrder);
         }
 
         private int RetrieveBookStoreAccountNumber()
