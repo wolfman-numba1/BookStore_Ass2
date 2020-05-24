@@ -40,13 +40,13 @@ namespace DeliveryCo.Business.Components
 
             for (int i = 0; i < confirmedOrders.GetLength(0); i++)
             {
-                Console.WriteLine(confirmedOrders[i][2] + "Book(s) with ID " + confirmedOrders[i][0] + "have been picked up from warehouse with ID " + confirmedOrders[i][1]);
+                Console.WriteLine(confirmedOrders[i][2] + " Book(s) with ID " + confirmedOrders[i][0] + " have been picked up from warehouse with ID " + confirmedOrders[i][1]);
                 Thread.Sleep(1000);
             }
 
             for (int i = 0; i < confirmedOrders.GetLength(0); i++)
             {
-                Console.WriteLine(confirmedOrders[i][2] + "Book(s) with ID " + confirmedOrders[i][0] + "are on a delivery truck");
+                Console.WriteLine(confirmedOrders[i][2] + " Book(s) with ID " + confirmedOrders[i][0] + " are on a delivery truck");
                 Thread.Sleep(1000);
             }
 
@@ -61,9 +61,10 @@ namespace DeliveryCo.Business.Components
 
             for (int i = 0; i < confirmedOrders.GetLength(0); i++)
             {
-                Console.WriteLine(confirmedOrders[i][2] + "Book(s) with ID " + confirmedOrders[i][0] + "have been delivered");
+                Console.WriteLine(confirmedOrders[i][2] + " Book(s) with ID " + confirmedOrders[i][0] + " have been delivered");
                 Thread.Sleep(1000);
             }
+            Console.WriteLine("Order is completed. Thank you for shopping with the book store.");
         }
     }
 }

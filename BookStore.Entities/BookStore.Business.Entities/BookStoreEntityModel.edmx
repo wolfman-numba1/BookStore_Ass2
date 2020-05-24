@@ -91,6 +91,7 @@
     <Property Name="Warehouse" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Store" Type="nvarchar(max)" Nullable="true" />
     <Property Name="OrderNumber" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Deleted" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="Customer_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderItems">
@@ -363,6 +364,7 @@
           <NavigationProperty Name="Customer" Relationship="BookStoreEntityModel.CustomerOrder" FromRole="Order" ToRole="Customer" />
           <Property Type="Guid" Name="OrderNumber" Nullable="false" />
           <NavigationProperty Name="Delivery" Relationship="BookStoreEntityModel.DeliveryOrder" FromRole="Order" ToRole="Delivery" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" DefaultValue="False" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -486,6 +488,7 @@
           <ScalarProperty Name="Warehouse" ColumnName="Warehouse" />
           <ScalarProperty Name="Store" ColumnName="Store" />
           <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

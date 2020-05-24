@@ -50,7 +50,7 @@ namespace BookStore.WebClient.Controllers
         }
 
         //new method to help a user cancel their order
-        public ActionResult CancelOrder(Order UserOrder, Cart pCart, UserCache pUser)
+        public ActionResult CancelOrder(int UserOrder, Cart pCart, UserCache pUser)
         {
             try
             {
@@ -64,8 +64,9 @@ namespace BookStore.WebClient.Controllers
             }
             return View();
         }
+
         //fix this submitOrder method below
-        public ActionResult SubmitOrder(Order UserOrder, Cart pCart, UserCache pUser)
+        public ActionResult SubmitOrder(int UserOrder, Cart pCart, UserCache pUser)
         {
             try
             {
@@ -77,12 +78,12 @@ namespace BookStore.WebClient.Controllers
                 pUser.UpdateUserCache();
                 return RedirectToAction("ErrorPage");
             }
-            return View(new CheckOutViewModel(pUser.Model));
+            return RedirectToAction("CheckOut", "Cart");
         }
 
         public ActionResult ContinueShopping()
         {
-            return View(new CatalogueViewModel());
+            return RedirectToAction("ListBooks", "Store");
         }
 
         public ActionResult ErrorPage()
