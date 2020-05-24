@@ -79,6 +79,7 @@ namespace BookStore.Business.Components
                         lContainer.Orders.Add(pOrder);
 
                         // ask the Bank service to transfer fundss
+                        lContainer.SaveChanges();
 
                         //TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0, pOrder.OrderNumber.ToString());
                         TransferFundsFromCustomer(UserProvider.ReadUserById(pOrder.Customer.Id).BankAccountNumber, pOrder.Total ?? 0.0, pOrder.Id.ToString(), pOrder.Customer.Email);
@@ -351,11 +352,11 @@ namespace BookStore.Business.Components
                 {
 
                     //NEED TO RE-ADD back the reset stock level
-                   
-                  //  pOrder.ResetStockLevels();
-                
-                //    var order = lContainer.Orders.Include("Customer").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
-                   
+                    Order pOrder = lContainer.Orders.Find(Int32.Parse(pOrderNumber));
+                    pOrder.ResetStockLevels();
+
+                    //    var order = lContainer.Orders.Include("Customer").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
+
                     EmailProvider.SendMessage(new EmailMessage()
                     {
                         ToAddress = customerEmail,
