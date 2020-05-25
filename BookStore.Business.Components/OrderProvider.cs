@@ -369,8 +369,9 @@ namespace BookStore.Business.Components
                             {
                                 //  ToAddress = pOrder.Customer.Email,
                                 ToAddress = customerEmail,
-                               // Message = "Transaction was successful and your money has been transfered for your order number " + (pOrder.OrderNumber).ToString()
-                                Message = "Transaction was successful and your money has been transfered for your order " + (pOrder.Id).ToString()
+                                // Message = "Transaction was successful and your money has been transfered for your order number " + (pOrder.OrderNumber).ToString()
+                                //  Message = "Transaction was successful and your money has been transfered for your order " + (pOrder.Id).ToString()
+                                Message = "Transaction was successful and your money has been transfered for your order " + (pOrder.OrderNumber).ToString()
                             });
 
                             lScope.Complete();
@@ -400,6 +401,7 @@ namespace BookStore.Business.Components
 
                     //NEED TO RE-ADD back the reset stock level
                     Order pOrder = lContainer.Orders.Find(Int32.Parse(pOrderNumber));
+                   
                     pOrder.ResetStockLevels();
 
                     //    var order = lContainer.Orders.Include("Customer").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
@@ -407,9 +409,11 @@ namespace BookStore.Business.Components
                     EmailProvider.SendMessage(new EmailMessage()
                     {
                         ToAddress = customerEmail,
-                        Message = "There was an error in processsing your order " + pOrderNumber + " " + reason
+                        // Message = "There was an error in processsing your order " + pOrderNumber + " " + reason
 
-                                
+                        Message = "There was an error in processsing your order " + pOrder.OrderNumber.ToString() + " " + reason
+
+
                         // Message = "There was an error in processsing your order, get in contact with the BookStore team so we can help you out!"
                     }) ;
 
