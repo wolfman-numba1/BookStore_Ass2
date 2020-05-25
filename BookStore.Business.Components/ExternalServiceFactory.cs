@@ -27,7 +27,7 @@ namespace BookStore.Business.Components
         {
             get
             {
-                return GetTcpService<IEmailService>("net.tcp://localhost:9040/EmailService");
+                return GetMsmqService<IEmailService>("net.msmq://localhost/private/EmailNotify");
             }
         }
 

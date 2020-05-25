@@ -8,14 +8,18 @@ using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using System.Configuration;
+using System.Messaging;
 
 namespace EmailService.Process
 {
     class Program
     {
+        private static readonly String queueName = ".\\private$\\EmailNotify";
         static void Main(string[] args)
         {
+           
             ResolveDependencies();
+            EnsureQueueExists(queueName);
             using (ServiceHost lHost = new ServiceHost(typeof(EmailService.Services.EmailService)))
             {
                 lHost.Open();
@@ -33,6 +37,12 @@ namespace EmailService.Process
             lSection.Containers["containerOne"].Configure(lContainer);
             UnityServiceLocator locator = new UnityServiceLocator(lContainer);
             ServiceLocator.SetLocatorProvider(() => locator);
+        }
+
+        private static void EnsureQueueExists(String queueName)
+        {
+            if (!MessageQueue.Exists(queueName))
+                MessageQueue.Create(queueName, true);
         }
     }
 }
